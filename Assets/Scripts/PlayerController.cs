@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     private Transform myCamera = null; 
     private Vector3 dest;
     public static float speed = 8f;
+    public float cameraCeiling = 250f;
+    public float cameraFloor = 10f;
     public Camera mainCamera;
     public NavMeshAgent agent;
 
@@ -30,6 +32,17 @@ public class PlayerController : MonoBehaviour
             
         }
         
+        if (Input.mouseScrollDelta != Vector2.zero)
+        {
+            Vector3 temp = new Vector3(myCamera.position.x,myCamera.position.y,myCamera.position.z);
+            Vector3 desiredHeight = temp += (new Vector3(0f, -Input.mouseScrollDelta.y, 0f) * (speed / 2));
+
+            if (desiredHeight.y > cameraFloor && desiredHeight.y < cameraCeiling)
+            {
+                myCamera.position = desiredHeight;
+            }
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             Ray castme = mainCamera.ScreenPointToRay(Input.mousePosition);
