@@ -25,32 +25,35 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Vertical") || Input.GetButton("Horizontal") )
+        if (!escMenuHandler.escapeMenuVisible)
         {
-            dest = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-            myCamera.position = myCamera.position += (dest * speed);
-            
-        }
-        
-        if (Input.mouseScrollDelta != Vector2.zero)
-        {
-            Vector3 temp = new Vector3(myCamera.position.x,myCamera.position.y,myCamera.position.z);
-            Vector3 desiredHeight = temp += (new Vector3(0f, -Input.mouseScrollDelta.y, 0f) * (speed / 2));
-
-            if (desiredHeight.y > cameraFloor && desiredHeight.y < cameraCeiling)
+            if (Input.GetButton("Vertical") || Input.GetButton("Horizontal") )
             {
-                myCamera.position = desiredHeight;
+                dest = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+                myCamera.position = myCamera.position += (dest * speed);
+                
             }
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray castme = mainCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(castme, out hit))
+            
+            if (Input.mouseScrollDelta != Vector2.zero)
             {
-                    agent.SetDestination(hit.point);
+                Vector3 temp = new Vector3(myCamera.position.x,myCamera.position.y,myCamera.position.z);
+                Vector3 desiredHeight = temp += (new Vector3(0f, -Input.mouseScrollDelta.y, 0f) * (speed / 2));
+
+                if (desiredHeight.y > cameraFloor && desiredHeight.y < cameraCeiling)
+                {
+                    myCamera.position = desiredHeight;
+                }
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray castme = mainCamera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(castme, out hit))
+                {
+                        agent.SetDestination(hit.point);
+                }
             }
         }
     }
