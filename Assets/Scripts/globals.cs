@@ -6,5 +6,6 @@ public class globals : MonoBehaviour
 {
 
     public static GameObject escapeMenu;
+    public static GameObject time;
     
 }
