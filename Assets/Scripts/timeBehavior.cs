@@ -8,11 +8,12 @@ public class timeBehavior : MonoBehaviour
     public float currentTimeScale;
     public static DateTime startDate = new DateTime(1375,1,1);
     public static DateTime gameDate =new DateTime(1375,1,1); 
-    public string gameDateString;
+    public static string gameDateString;
     public float cumulativeTime; //TODO needs serialized in game saves!!!!
     public float gameDays;
     public int temp = 0;
     public int lastTemp = 0;
+    public static float lastTS = 1;
     // Start is called before the first frame update
 
     public void changeTimeScale(float value)
@@ -52,5 +53,21 @@ public class timeBehavior : MonoBehaviour
     void Update()
     {
         addTime(Time.deltaTime);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (currentTimeScale == 0)
+            {
+                changeTimeScale(lastTS);
+                //change back to previoous time
+            }
+            else
+            {
+                //record previous time
+                lastTS = currentTimeScale; 
+                changeTimeScale(0);
+
+            }
+            
+        }
     }
 }

@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
+
+
             if (Input.GetMouseButtonDown(0))
             {
                 Ray castme = mainCamera.ScreenPointToRay(Input.mousePosition);
