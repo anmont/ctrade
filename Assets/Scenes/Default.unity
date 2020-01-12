@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 272440253}
   - component: {fileID: 272440252}
   m_Layer: 0
-  m_Name: TerrainA
+  m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
