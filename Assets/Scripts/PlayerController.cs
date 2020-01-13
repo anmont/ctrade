@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float cameraFloor = 10f;
     public Camera mainCamera;
     public NavMeshAgent agent;
+    public bool pointerOnUi = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +23,14 @@ public class PlayerController : MonoBehaviour
         mainCamera = myCamera.GetComponent<Camera>();
         agent = GameObject.FindGameObjectWithTag("Player").GetComponent<NavMeshAgent>();
     }
-
+public void onPointerExit()
+{
+    pointerOnUi = false;
+}
+public void onPointerOver()
+{
+    pointerOnUi = true;
+}
     // Update is called once per frame
     void Update()
     {
@@ -49,13 +58,19 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
+                Debug.Log("Over Game Object : " + EventSystem.current.IsPointerOverGameObject());
                 Ray castme = mainCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
+                
                 if (Physics.Raycast(castme, out hit))
                 {
+                    if (!pointerOnUi)
+                    {
                         agent.SetDestination(hit.point);
+                    }
                 }
+                
             }
         }
     }
