@@ -6,6 +6,7 @@ TagManager:
   tags:
   - escapeMenu
   - globalsScript
+  - navMeshSurface
   layers:
   - Default
   - TransparentFX

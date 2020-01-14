@@ -112,6 +112,9 @@ void Start() {
      //obj.terrainData.SetHeights(0,0, heights);
      NavMeshSurface mesh = globals.navMesh.gameObject.GetComponent<NavMeshSurface>();
      mesh.BuildNavMesh();
+     //terrain.transform.position += new Vector3(0,0.5f,0);
+     Vector3 navMeshLoc = GameObject.FindGameObjectWithTag("navMeshSurface").GetComponent<Transform>().position;
+     navMeshLoc += new Vector3(0,0.85f,0);
      //generateCities();
      StartCoroutine(generateCities());
      Debug.Log("Fin");
