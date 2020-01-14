@@ -54,6 +54,32 @@ public void onPointerOver()
                 }
             }
 
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                if (globals.selectedVessel == null)
+                {
+                    if (globals.shipList.Count > 0)
+                    {
+                        globals.selectedVessel = globals.shipList[0];
+                        Camera.main.gameObject.transform.position = new Vector3(globals.selectedVessel.transform.position.x, Camera.main.gameObject.transform.position.y, globals.selectedVessel.transform.position.z) ;
+                    }
+                }
+                else if (globals.shipList.Count > 1)
+                {
+                    int vesselM = globals.shipList.IndexOf(globals.selectedVessel);
+                    if (globals.shipList.Count == vesselM+1)
+                    {
+                        globals.selectedVessel = globals.shipList[0];
+                        Camera.main.gameObject.transform.position = new Vector3(globals.selectedVessel.transform.position.x, Camera.main.gameObject.transform.position.y, globals.selectedVessel.transform.position.z) ;
+                    }
+                    else
+                    {
+                        globals.selectedVessel = globals.shipList[vesselM+1];
+                        Camera.main.gameObject.transform.position = new Vector3(globals.selectedVessel.transform.position.x, Camera.main.gameObject.transform.position.y, globals.selectedVessel.transform.position.z) ;
+                    }
+
+                }
+            }
 
 
             if (Input.GetMouseButtonDown(0))

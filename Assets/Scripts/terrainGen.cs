@@ -247,6 +247,7 @@ IEnumerator generateCities()
     // place a prefab and autoname it, add it to the cities collections
 
     globals.createVessel(new Vector3(0,0,0));
+    
 }
 public void tempCreateVessel()
 {
