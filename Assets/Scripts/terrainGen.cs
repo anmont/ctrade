@@ -116,6 +116,7 @@ void Start() {
      Vector3 navMeshLoc = GameObject.FindGameObjectWithTag("navMeshSurface").GetComponent<Transform>().position;
      navMeshLoc += new Vector3(0,0.85f,0);
      //generateCities();
+     
      StartCoroutine(generateCities());
      Debug.Log("Fin");
  }
@@ -245,9 +246,12 @@ IEnumerator generateCities()
     // if water is hit, drop several other lines at small intervals to determine the exact spot
     // place a prefab and autoname it, add it to the cities collections
 
-
+    globals.createVessel(new Vector3(0,0,0));
 }
-
+public void tempCreateVessel()
+{
+    globals.createVessel(globals.cityList[0].gameObject.transform.position);
+}
 public static bool cityLocationValid(Vector3 loc)
 {
     bool ret = true;

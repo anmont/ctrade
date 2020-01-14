@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float cameraCeiling = 250f;
     public float cameraFloor = 10f;
     public Camera mainCamera;
-    public NavMeshAgent agent;
+    //public NavMeshAgent agent;
     public bool pointerOnUi = false;
 
     // Start is called before the first frame update
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         myCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
         mainCamera = myCamera.GetComponent<Camera>();
-        agent = GameObject.FindGameObjectWithTag("Player").GetComponent<NavMeshAgent>();
+        //agent = GameObject.FindGameObjectWithTag("Player").GetComponent<NavMeshAgent>();
     }
 public void onPointerExit()
 {
@@ -58,7 +58,7 @@ public void onPointerOver()
 
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Over Game Object : " + EventSystem.current.IsPointerOverGameObject());
+                //Debug.Log("Over Game Object : " + EventSystem.current.IsPointerOverGameObject());
                 Ray castme = mainCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
@@ -67,7 +67,11 @@ public void onPointerOver()
                 {
                     if (!pointerOnUi)
                     {
-                        agent.SetDestination(hit.point);
+                        if (globals.selectedVessel != null)
+                        {
+                            globals.selectedVessel.gameObject.GetComponent<NavMeshAgent>().SetDestination(hit.point);
+                        }
+                        //agent.SetDestination(hit.point);
                     }
                 }
                 

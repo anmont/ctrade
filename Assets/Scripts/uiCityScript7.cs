@@ -19,14 +19,25 @@ public class uiCityScript7 : MonoBehaviour
         {
             Text aAA = this.gameObject.GetComponentInChildren<Text>();
             GameObject myShip = GameObject.FindGameObjectWithTag("Player");
-            aAA.text = globals.cityList[7].name + " (" + Mathf.RoundToInt(Vector3.Distance(globals.cityList[7].transform.position,myShip.transform.position)) + "km)";
+            if (globals.selectedVessel == null)
+            {
+                aAA.text = globals.cityList[7].name;
+            }
+            else
+            {
+                aAA.text = globals.cityList[7].name + " (" + Mathf.RoundToInt(Vector3.Distance(globals.cityList[7].transform.position,globals.selectedVessel.transform.position)) + "km)";
+            }
+
         }
 
     }
 
     public void navigateTo()
     {
-        NavMeshAgent agent = GameObject.FindGameObjectWithTag("Player").GetComponent<NavMeshAgent>();
-        agent.SetDestination(globals.cityList[7].transform.position);
+        if (globals.selectedVessel != null)
+        {
+            NavMeshAgent agent = globals.selectedVessel.GetComponent<NavMeshAgent>();
+            agent.SetDestination(globals.cityList[7].transform.position);
+        }
     }
 }
