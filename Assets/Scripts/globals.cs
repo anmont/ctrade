@@ -15,10 +15,24 @@ public class globals : MonoBehaviour
     public static List<GameObject> shipList = new List<GameObject>();
     public static List<string> vesselList = new List<string>();
 
-    public static void createVessel(Vector3 location)
+    public static void createVessel(Vector3 location, int size)
     {
+        string prefabName = "";
+        if (size == 0)
+        {
+            prefabName = "smallShip";
+        }
+        else if (size == 1)
+        {
+            prefabName = "mediumShip";
+        }
+        else if (size == 2)
+        {
+            prefabName = "largeShip";
+        }
+
         //innstantiate
-        GameObject newVessel = (GameObject)Instantiate(Resources.Load("ship"), location, Quaternion.identity);
+        GameObject newVessel = (GameObject)Instantiate(Resources.Load(prefabName), location, Quaternion.identity);
 
         //Name the vessel
         int randMe = Random.Range(0,vesselList.Count);
@@ -38,6 +52,23 @@ public class globals : MonoBehaviour
         buttonShip.gameObject.GetComponentInChildren<Text>().text = newVessel.name;
         selectedVessel = newVessel;
         Camera.main.gameObject.transform.position = new Vector3(newVessel.transform.position.x, Camera.main.gameObject.transform.position.y, newVessel.transform.position.z) ;
+    }
+
+    public static void dailyTrigger()
+    {
+        Debug.Log("Daily Trigger was called at " + timeBehavior.gameDate.ToString());
+    }
+    public static void weeklyTrigger()
+    {
+        Debug.Log("Weekly Trigger was called at " + timeBehavior.gameDate.ToString());
+    }
+    public static void monthlyTrigger()
+    {
+        Debug.Log("Monthly Trigger was called at " + timeBehavior.gameDate.ToString());
+    }
+    public static void yearlyTrigger()
+    {
+        Debug.Log("Yearly Trigger was called at " + timeBehavior.gameDate.ToString());
     }
 
     public void Start() {

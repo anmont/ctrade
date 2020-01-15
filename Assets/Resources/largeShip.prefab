@@ -1,12 +1,26 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!195 &249679900519982866
+--- !u!114 &5633315034774174686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5983861456957171327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a498aa2be048c84c9ee2bbc888abebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vesselInstance: {fileID: 0}
+  vesselStorageSize: 500
+--- !u!195 &6233751912413160039
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5197608963907769860}
+  m_GameObject: {fileID: 5983861456957171327}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 5
@@ -22,7 +36,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
---- !u!1001 &5198748057138170084
+--- !u!1001 &5984938977536751775
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -39,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1183078024404704, guid: 1b78331b52629c7479714da987b1a28b, type: 3}
       propertyPath: m_Name
-      value: ship
+      value: largeShip
       objectReference: {fileID: 0}
     - target: {fileID: 1183078024404704, guid: 1b78331b52629c7479714da987b1a28b, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -215,9 +229,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b78331b52629c7479714da987b1a28b, type: 3}
---- !u!1 &5197608963907769860 stripped
+--- !u!1 &5983861456957171327 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1183078024404704, guid: 1b78331b52629c7479714da987b1a28b,
     type: 3}
-  m_PrefabInstance: {fileID: 5198748057138170084}
+  m_PrefabInstance: {fileID: 5984938977536751775}
   m_PrefabAsset: {fileID: 0}

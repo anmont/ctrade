@@ -16,6 +16,11 @@ public class timeBehavior : MonoBehaviour
     public static float lastTS = 1;
     // Start is called before the first frame update
 
+    public int lastMonth = 1;
+    public int lastSundayWeek;
+    public int lastYear = 1375;
+    public int lastDay = 1;
+
     public void changeTimeScale(float value)
     {
         Time.timeScale = value;
@@ -67,7 +72,39 @@ public class timeBehavior : MonoBehaviour
                 changeTimeScale(0);
 
             }
-            
+        }
+        //Weekly trigger
+        if(gameDate.DayOfWeek == DayOfWeek.Monday)
+        {
+            //if this monday
+            if (gameDate.Day != lastSundayWeek)
+            {
+                // TODO start co-routine for job
+                lastSundayWeek = gameDate.Day;
+                globals.weeklyTrigger();
+            }
+        }
+
+        //Daily Trigger
+        if(gameDate.Day != lastDay)
+        {
+            // TODO start co-routine for job
+            lastDay = gameDate.Day;
+            globals.dailyTrigger();
+        }
+
+        //Monthly trigger
+        if(gameDate.Month != lastMonth)
+        {
+            lastMonth = gameDate.Month ;
+            globals.monthlyTrigger();
+        }
+
+        //Yearly trigger
+        if(gameDate.Year != lastYear)
+        {
+            lastYear = gameDate.Year ;
+            globals.yearlyTrigger();
         }
     }
 }

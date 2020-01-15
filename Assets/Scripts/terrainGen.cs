@@ -246,12 +246,21 @@ IEnumerator generateCities()
     // if water is hit, drop several other lines at small intervals to determine the exact spot
     // place a prefab and autoname it, add it to the cities collections
 
-    globals.createVessel(new Vector3(0,0,0));
+    globals.createVessel(new Vector3(0,0,0),0);
     
 }
-public void tempCreateVessel()
+public void tempCreateSmallVessel()
 {
-    globals.createVessel(globals.cityList[0].gameObject.transform.position);
+    globals.createVessel(globals.cityList[0].gameObject.transform.position,0);
+}
+public void tempCreateLargeVessel()
+{
+    globals.createVessel(globals.cityList[0].gameObject.transform.position,1);
+}
+
+public void tempCreateMediumVessel()
+{
+    globals.createVessel(globals.cityList[0].gameObject.transform.position,2);
 }
 public static bool cityLocationValid(Vector3 loc)
 {
