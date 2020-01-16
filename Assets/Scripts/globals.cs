@@ -7,6 +7,7 @@ public class globals : MonoBehaviour
 {
 
     public GameObject shipParentPanel;
+    public static double playerCash = 100000;
     public static GameObject escapeMenu;
     public static GameObject selectedVessel;
     public static GameObject time;
@@ -14,7 +15,17 @@ public class globals : MonoBehaviour
     public static List<GameObject> cityList = new List<GameObject>();
     public static List<GameObject> shipList = new List<GameObject>();
     public static List<string> vesselList = new List<string>();
+    public static int vesselUpkeepMultiplyer = 75;
+    public static double vesselShipSavings = .9;
 
+    public static void calculateShipUpkeep()
+    {
+        foreach (GameObject vessel in shipList)
+        {
+            playerCash = playerCash - ((double)(vessel.GetComponent<vesselScript>().vesselClassification + 1) * (double)vesselShipSavings * (double)vesselUpkeepMultiplyer);
+            
+        }
+    }
     public static void createVessel(Vector3 location, int size)
     {
         string prefabName = "";
@@ -57,6 +68,7 @@ public class globals : MonoBehaviour
     public static void dailyTrigger()
     {
         Debug.Log("Daily Trigger was called at " + timeBehavior.gameDate.ToString());
+        calculateShipUpkeep();
     }
     public static void weeklyTrigger()
     {

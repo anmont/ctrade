@@ -6,6 +6,7 @@ public class vesselScript : MonoBehaviour
 {
     public GameObject vesselInstance;
     public int vesselStorageSize;
+    public int vesselClassification;
     // Start is called before the first frame update
     void Start()
     {
