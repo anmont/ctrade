@@ -105,18 +105,18 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
-    agentHeight: 0.5
+    agentRadius: 5
+    agentHeight: 0.01
     agentSlope: 0
     agentClimb: 0.01
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
-    manualCellSize: 0
-    cellSize: 0.16666667
+    manualCellSize: 1
+    cellSize: 2
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    accuratePlacement: 1
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 2bc4157339a1db841b44f96e3df1073d, type: 2}
@@ -821,7 +821,7 @@ GameObject:
   - component: {fileID: 272440254}
   - component: {fileID: 272440253}
   - component: {fileID: 272440252}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1961,10 +1961,10 @@ MonoBehaviour:
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 0
   m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.6666667
+  m_OverrideVoxelSize: 1
+  m_VoxelSize: 2
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 63bc1f1b685e55044b8d7c4bf6a7c614, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: d66723e2eac24334e93aca0d75b6362c, type: 2}
 --- !u!4 &602251554
 Transform:
   m_ObjectHideFlags: 0
@@ -1973,7 +1973,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 602251551}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

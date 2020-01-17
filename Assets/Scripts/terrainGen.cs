@@ -102,7 +102,7 @@ void Start() {
      terrain.terrainData.SetHeightsDelayLOD(0, 0, heights);
      //terrain.terrainData.SetHeights(0, 0, heights);
 
-     terrain.GetComponent<Transform>().position = new Vector3(-500,-5,-500);
+     terrain.GetComponent<Transform>().position = new Vector3(-500, -5,-500);
      
      terrain.ApplyDelayedHeightmapModification();
      terrain.Flush();
@@ -113,8 +113,9 @@ void Start() {
      NavMeshSurface mesh = globals.navMesh.gameObject.GetComponent<NavMeshSurface>();
      mesh.BuildNavMesh();
      //terrain.transform.position += new Vector3(0,0.5f,0);
+
      Vector3 navMeshLoc = GameObject.FindGameObjectWithTag("navMeshSurface").GetComponent<Transform>().position;
-     navMeshLoc += new Vector3(0,0.85f,0);
+     //navMeshLoc = new Vector3(0,-0.9f,0);
      //generateCities();
      
      StartCoroutine(generateCities());
