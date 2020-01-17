@@ -12,7 +12,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0c054cd765e3d784bb2b3a02d3b68508, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.69
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -122,7 +122,7 @@ AudioSource:
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
-  BypassReverbZones: 0
+  BypassReverbZones: 1
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -206,6 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vesselInstance: {fileID: 0}
   vesselStorageSize: 150
+  vesselClassification: 0
 --- !u!195 &249679900519982866
 NavMeshAgent:
   m_ObjectHideFlags: 0
