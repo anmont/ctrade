@@ -96,6 +96,7 @@ public void onPointerOver()
                         if (globals.selectedVessel != null)
                         {
                             globals.selectedVessel.gameObject.GetComponent<NavMeshAgent>().SetDestination(hit.point);
+                            //globals.selectedVessel.gameObject.GetComponent<NavMeshAgent>()..SetDestination(hit.point);
                         }
                         //agent.SetDestination(hit.point);
                     }

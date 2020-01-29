@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5204640145787134996}
   - component: {fileID: 5204640145787134999}
   - component: {fileID: 5204640145787134998}
-  - component: {fileID: 5204640145787135017}
   - component: {fileID: 6309910463097374622}
   m_Layer: 5
   m_Name: shipButton
@@ -119,31 +118,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5204640145787134999}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5204640145787135017}
-        m_MethodName: selectThisVessel
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &5204640145787135017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5204640145787135019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34b41c4fa58be804d925dc50ff6740e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisVessel: {fileID: 0}
+      m_Calls: []
 --- !u!114 &6309910463097374622
 MonoBehaviour:
   m_ObjectHideFlags: 0

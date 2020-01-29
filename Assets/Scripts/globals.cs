@@ -22,7 +22,7 @@ public class globals : MonoBehaviour
     {
         foreach (GameObject vessel in shipList)
         {
-            playerCash = playerCash - ((double)(vessel.GetComponent<vesselScript>().vesselClassification + 1) * (double)vesselShipSavings * (double)vesselUpkeepMultiplyer);
+            playerCash = playerCash - ((double)(vessel.GetComponent<uiShipScript>().vesselClassification + 1) * (double)vesselShipSavings * (double)vesselUpkeepMultiplyer);
             
         }
     }
@@ -56,10 +56,12 @@ public class globals : MonoBehaviour
 
         //update GUI button for the vessel
         GameObject buttonShip = (GameObject)Instantiate(Resources.Load("shipButton"));
+        //Button testB = Instantiate(Resources.Load("shipButton"));
         buttonShip.gameObject.transform.SetParent(GameObject.Find("guiVessels").transform);
         buttonShip.gameObject.transform.localScale = new Vector3(1,1,1);
         //buttonShip.gameObject.transform.parent = ; 
-        buttonShip.GetComponent<uiShipScript>().thisVessel = newVessel.gameObject;
+        newVessel.GetComponent<uiShipScript>().thisVessel = newVessel.gameObject;
+        newVessel.GetComponent<uiShipScript>().shipButton = buttonShip.gameObject.GetComponent<Button>();
         buttonShip.gameObject.GetComponentInChildren<Text>().text = newVessel.name;
         selectedVessel = newVessel;
         Camera.main.gameObject.transform.position = new Vector3(newVessel.transform.position.x, Camera.main.gameObject.transform.position.y, newVessel.transform.position.z) ;
@@ -67,20 +69,21 @@ public class globals : MonoBehaviour
 
     public static void dailyTrigger()
     {
-        Debug.Log("Daily Trigger was called at " + timeBehavior.gameDate.ToString());
+        //Debug.Log("Daily Trigger was called at " + timeBehavior.gameDate.ToString());
         calculateShipUpkeep();
+        
     }
     public static void weeklyTrigger()
     {
-        Debug.Log("Weekly Trigger was called at " + timeBehavior.gameDate.ToString());
+        //Debug.Log("Weekly Trigger was called at " + timeBehavior.gameDate.ToString());
     }
     public static void monthlyTrigger()
     {
-        Debug.Log("Monthly Trigger was called at " + timeBehavior.gameDate.ToString());
+        //Debug.Log("Monthly Trigger was called at " + timeBehavior.gameDate.ToString());
     }
     public static void yearlyTrigger()
     {
-        Debug.Log("Yearly Trigger was called at " + timeBehavior.gameDate.ToString());
+        //Debug.Log("Yearly Trigger was called at " + timeBehavior.gameDate.ToString());
     }
 
     public void Start() {

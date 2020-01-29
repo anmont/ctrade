@@ -12,6 +12,8 @@ public class inusiplayr : MonoBehaviour
     void Start () {
         audioSource = GetComponent<AudioSource> ();
         audioSource.loop = false;
+        //clips..AudioClip a = (AudioClip)Resources.Load("Russian_Dance");
+        //AudioClip.Create("Russian_Dance");
 
     }
 
