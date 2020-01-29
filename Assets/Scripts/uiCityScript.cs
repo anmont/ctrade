@@ -84,9 +84,11 @@ public class uiCityScript : MonoBehaviour
         if (other.transform.gameObject.tag == "Player")
         {
             Debug.Log("Ship " + other.transform.gameObject.name + "has entered the city " + thisCity.name);
+            other.transform.gameObject.GetComponentInChildren<Projector>().enabled = false;
+
             foreach (MeshRenderer i in other.transform.gameObject.GetComponentsInChildren<MeshRenderer>())
             {
-                i.enabled = false;//.enabled = true;
+                i.enabled = false;
                 other.transform.gameObject.GetComponent<uiShipScript>().location = thisCity.name;
             }
         
@@ -96,6 +98,10 @@ public class uiCityScript : MonoBehaviour
     public void OnTriggerExit(Collider other) {
         if (other.transform.gameObject.tag == "Player")
         {
+            if (globals.selectedVessel == other.transform.gameObject)
+            {
+                other.transform.gameObject.GetComponentInChildren<Projector>().enabled = true;
+            }
             Debug.Log("Ship " + other.transform.gameObject.name + "has exited the city " + thisCity.name);
             foreach (MeshRenderer i in other.transform.gameObject.GetComponentsInChildren<MeshRenderer>())
             {

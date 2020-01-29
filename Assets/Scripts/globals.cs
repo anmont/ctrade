@@ -63,7 +63,8 @@ public class globals : MonoBehaviour
         newVessel.GetComponent<uiShipScript>().thisVessel = newVessel.gameObject;
         newVessel.GetComponent<uiShipScript>().shipButton = buttonShip.gameObject.GetComponent<Button>();
         buttonShip.gameObject.GetComponentInChildren<Text>().text = newVessel.name;
-        selectedVessel = newVessel;
+        //selectedVessel = newVessel;
+        newVessel.gameObject.GetComponent<uiShipScript>().selectThisVessel();
         Camera.main.gameObject.transform.position = new Vector3(newVessel.transform.position.x, Camera.main.gameObject.transform.position.y, newVessel.transform.position.z) ;
     }
 

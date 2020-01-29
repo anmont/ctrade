@@ -36,7 +36,7 @@ public class uiShipScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("what is this");
+        //Debug.Log("what is this");
         //vesselInstance = this.gameObject.paren;
         //shipButton = this.gameObject.GetComponent<Button>();
         shipButton.onClick.AddListener(selectThisVessel);
@@ -50,9 +50,23 @@ public class uiShipScript : MonoBehaviour
         
     }
 
-    void selectThisVessel()
+    public void selectThisVessel()
     {
+        if (globals.selectedVessel != null)
+        {
+            //disable the selected ring
+            globals.selectedVessel.GetComponentInChildren<Projector>().enabled = false;
+        }
+
+
         globals.selectedVessel = thisVessel;
+
+        //enable selection ring of this vessel
+        if (globals.selectedVessel.gameObject.GetComponent<uiShipScript>().location == "At Sea")
+        {
+            globals.selectedVessel.GetComponentInChildren<Projector>().enabled = true;
+        }
+
         Camera.main.gameObject.transform.position = new Vector3(thisVessel.transform.position.x, Camera.main.gameObject.transform.position.y, thisVessel.transform.position.z) ;
 
     }
