@@ -8,7 +8,7 @@ using UnityEngine.AI;
  public float Tiling = 0.5f;
  private bool active = false;
  public int mapHeight = 1000;
- public List<string> cityList = new List<string>();
+ public static List<string> cityList = new List<string>();
  
 void Start() {
     Begin();    
@@ -232,12 +232,7 @@ IEnumerator generateCities()
             {
                 //create new city
                 //Debug.Log("Create city at " + landHitLoc);
-                GameObject newCity = (GameObject)Instantiate(Resources.Load("City"),landHitLoc,Quaternion.identity);
-                int randMe = Random.Range(0,cityList.Count);
-                newCity.name = cityList[randMe];
-                cityList.RemoveAt(randMe);
-                globals.cityList.Add(newCity);
-                newCity.GetComponent<uiCityScript>().thisCity = newCity;
+                globals.createCity(landHitLoc);
                 city ++;
             }
         }

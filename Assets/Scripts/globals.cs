@@ -9,9 +9,12 @@ public class globals : MonoBehaviour
     public GameObject shipParentPanel;
     public static double playerCash = 100000;
     public static GameObject escapeMenu;
+    public static GameObject cityEconomyInstance;
     public static GameObject selectedVessel;
     public static GameObject time;
     public static GameObject navMesh;
+    public static GameObject shipGroup;
+    public static GameObject cityGroup;
     public static List<GameObject> cityList = new List<GameObject>();
     public static List<GameObject> shipList = new List<GameObject>();
     public static List<string> vesselList = new List<string>();
@@ -25,6 +28,32 @@ public class globals : MonoBehaviour
             playerCash = playerCash - ((double)(vessel.GetComponent<uiShipScript>().vesselClassification + 1) * (double)vesselShipSavings * (double)vesselUpkeepMultiplyer);
             
         }
+    }
+
+    public static GameObject createCity(Vector3 landHitLoc)
+    {
+        //create gameobject
+        GameObject newCity = (GameObject)Instantiate(Resources.Load("City"),landHitLoc,Quaternion.identity);
+        newCity.transform.SetParent(cityGroup.transform);
+        //get a random name from the list
+        int randMe = Random.Range(0,terrainGen.cityList.Count);
+        newCity.name = terrainGen.cityList[randMe];
+        terrainGen.cityList.RemoveAt(randMe);
+        //Add the city to the city list
+        globals.cityList.Add(newCity);
+        //give the city the object reference TODO remove this and have the start script update this info
+        newCity.GetComponent<uiCityScript>().thisCity = newCity;
+
+        //give the city production assignment
+        globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().determineProduction(newCity);
+
+        //give the city a population
+        globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().determinePopulation(newCity);
+
+        //TODO Determine what the starting population of the city should be
+        //TODO Determine what products the city should produce
+
+        return newCity;
     }
     public static void createVessel(Vector3 location, int size)
     {
@@ -44,6 +73,7 @@ public class globals : MonoBehaviour
 
         //innstantiate
         GameObject newVessel = (GameObject)Instantiate(Resources.Load(prefabName), location, Quaternion.identity);
+        newVessel.transform.SetParent(shipGroup.transform);
 
         //Name the vessel
         int randMe = Random.Range(0,vesselList.Count);
@@ -71,7 +101,15 @@ public class globals : MonoBehaviour
     public static void dailyTrigger()
     {
         //Debug.Log("Daily Trigger was called at " + timeBehavior.gameDate.ToString());
+        // TODO create coroutines for each
         calculateShipUpkeep();
+        //Calculate City Growth
+        //Calculate CIty Consumption
+        globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().calculateConsumption();
+        //Calculate City Production
+        globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().calculateProduction();
+        //calculate growth
+        globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().calculateGrowth();
         
     }
     public static void weeklyTrigger()
@@ -119,6 +157,9 @@ public class globals : MonoBehaviour
         vesselList.Add("Banff");
         vesselList.Add("Dutiful");
         
+        cityGroup = GameObject.Find("cityGroup").gameObject;
+        shipGroup = GameObject.Find("shipGroup").gameObject;
+
     }
 
 

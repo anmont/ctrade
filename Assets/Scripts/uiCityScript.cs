@@ -9,26 +9,39 @@ public class uiCityScript : MonoBehaviour
     public GameObject thisCityScript;
     public GameObject thisCity;
     public Button thisCityGuiButton;
+    public int cityPopulation;
+    public int productionMaterial1 = 50;
+    public int productionMaterial2 = 50;
+    public int productionMaterial3 = 50;
+    public double cityProsperity;
+    public double cityGrowth;
+    public double cityWealth;
+    public List<double> cityProsperityFloat = new List<double>();
+    public List<double> cityGrowthFloat = new List<double>();
+    public List<double> cityWealthFloat = new List<double>();
+
+
 
     //store button prefab instance here so can update
     public List<tradeGoods> cityInventory = new List<tradeGoods>() { 
-            new tradeGoods(){ productName="Grain", prefabName="ui/icons/Grain", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Timber", prefabName="ui/icons/Timber", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Fish", prefabName="ui/icons/Fish", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Silver", prefabName="ui/icons/Silver", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Iron", prefabName="ui/icons/Iron", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Copper", prefabName="ui/icons/Copper", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Tin", prefabName="ui/icons/Tin", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Spices", prefabName="ui/icons/Spices", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Perfumes", prefabName="ui/icons/Perfumes", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Gold", prefabName="ui/icons/Gold", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Jewels", prefabName="ui/icons/Jewels", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Leather Goods", prefabName="ui/icons/LeatherGoods", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Silk", prefabName="ui/icons/Silk", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Linen", prefabName="ui/icons/Linen", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Cotton", prefabName="ui/icons/Cotton", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Salt", prefabName="ui/icons/Salt", tier=1, quantity=0 },
-            new tradeGoods(){ productName="Slaves", prefabName="ui/icons/Slaves", tier=1, quantity=0 }
+            new tradeGoods(){ productName="Grain", prefabName="ui/icons/Grain", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Timber", prefabName="ui/icons/Timber", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Fish", prefabName="ui/icons/Fish", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Silver", prefabName="ui/icons/Silver", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Iron", prefabName="ui/icons/Iron", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Copper", prefabName="ui/icons/Copper", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Tin", prefabName="ui/icons/Tin", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Spices", prefabName="ui/icons/Spices", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Perfumes", prefabName="ui/icons/Perfumes", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Gold", prefabName="ui/icons/Gold", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Jewels", prefabName="ui/icons/Jewels", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Leather Goods", prefabName="ui/icons/LeatherGoods", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Silk", prefabName="ui/icons/Silk", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Linen", prefabName="ui/icons/Linen", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Cotton", prefabName="ui/icons/Cotton", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Clothes", prefabName="ui/icons/Cotton", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Salt", prefabName="ui/icons/Salt", perPersonPerYear=0.5, tier=1, quantity=500 },
+            new tradeGoods(){ productName="Slaves", prefabName="ui/icons/Slaves", perPersonPerYear=0.5, tier=1, quantity=500 }
         };
     // Start is called before the first frame update
     void Start()
