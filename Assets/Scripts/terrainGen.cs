@@ -123,6 +123,8 @@ void Start() {
      
      StartCoroutine(generateCities());
      Debug.Log("Fin");
+     terrain.GetComponent<Transform>().position = new Vector3(-500, -5.5f,-500);
+     terrain.GetComponent<Transform>().position = new Vector3(-500, -5f,-500);
  }
 
 

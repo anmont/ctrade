@@ -23,6 +23,7 @@ public class cityEconomy : MonoBehaviour
         {
             //find the grain quantity / lastconsumption
             //if more than 10 days of food is in stock, then its 100% happiness... else its on a scale div by 10days
+            //TODO this should include all food
             double grainQty = city.GetComponent<uiCityScript>().cityInventory[0].quantity;
             double grainLastCon = city.GetComponent<uiCityScript>().cityInventory[0].lastConsumptionQty;
             double currentProsperity = 0;
