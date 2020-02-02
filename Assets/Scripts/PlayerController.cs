@@ -26,10 +26,12 @@ public class PlayerController : MonoBehaviour
 public void onPointerExit()
 {
     pointerOnUi = false;
+    //Debug.Log("pointer on ui");
 }
 public void onPointerOver()
 {
     pointerOnUi = true;
+    //Debug.Log("pointer left ui");
 }
     // Update is called once per frame
     void Update()
@@ -43,14 +45,17 @@ public void onPointerOver()
                 
             }
             
-            if (Input.mouseScrollDelta != Vector2.zero)
+            if (!pointerOnUi)
             {
-                Vector3 temp = new Vector3(myCamera.position.x,myCamera.position.y,myCamera.position.z);
-                Vector3 desiredHeight = temp += (new Vector3(0f, -Input.mouseScrollDelta.y, 0f) * (speed / 2));
-
-                if (desiredHeight.y > cameraFloor && desiredHeight.y < cameraCeiling)
+                if (Input.mouseScrollDelta != Vector2.zero)
                 {
-                    myCamera.position = desiredHeight;
+                    Vector3 temp = new Vector3(myCamera.position.x,myCamera.position.y,myCamera.position.z);
+                    Vector3 desiredHeight = temp += (new Vector3(0f, -Input.mouseScrollDelta.y, 0f) * (speed / 2));
+
+                    if (desiredHeight.y > cameraFloor && desiredHeight.y < cameraCeiling)
+                    {
+                        myCamera.position = desiredHeight;
+                    }
                 }
             }
 

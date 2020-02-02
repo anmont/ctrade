@@ -30,6 +30,18 @@ public class globals : MonoBehaviour
         }
     }
 
+    public static void openTradeWindow(GameObject city, GameObject ship)
+    {
+        GameObject shipTradePanelI = (GameObject)Instantiate(Resources.Load("shipTradePanel"));
+        shipTradePanelI.transform.SetParent(GameObject.Find("mainCanvas").transform);
+        shipTradePanelI.GetComponent<RectTransform>().localPosition = new Vector3(0f,0f,0f);
+        shipTradePanelI.GetComponent<RectTransform>().localScale = new Vector3(1,1,1);
+        shipTradePanelI.GetComponentInChildren<ScrollRect>().scrollSensitivity = 50f;
+        shipTradePanelI.GetComponent<cityTradePanel>().cityToTrade = city;
+        shipTradePanelI.GetComponent<cityTradePanel>().vesselToTrade = ship;
+
+
+    }
     public static GameObject createCity(Vector3 landHitLoc)
     {
         //create gameobject
@@ -110,6 +122,7 @@ public class globals : MonoBehaviour
         globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().calculateProduction();
         //calculate growth
         globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().calculateGrowth();
+        globals.openTradeWindow(globals.shipList[0].gameObject,globals.cityList[0].gameObject);
         
     }
     public static void weeklyTrigger()

@@ -118,13 +118,13 @@ void Start() {
      //terrain.transform.position += new Vector3(0,0.5f,0);
 
      Vector3 navMeshLoc = GameObject.FindGameObjectWithTag("navMeshSurface").GetComponent<Transform>().position;
-     //navMeshLoc = new Vector3(0,-0.9f,0);
+     navMeshLoc = new Vector3(0,-0.5f,0);
      //generateCities();
      
      StartCoroutine(generateCities());
      Debug.Log("Fin");
-     terrain.GetComponent<Transform>().position = new Vector3(-500, -5.5f,-500);
-     terrain.GetComponent<Transform>().position = new Vector3(-500, -5f,-500);
+     //terrain.GetComponent<Transform>().position = new Vector3(-500, -5.5f,-500);
+     //terrain.GetComponent<Transform>().position = new Vector3(-500, -5f,-500);
  }
 
 

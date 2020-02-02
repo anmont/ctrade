@@ -12,7 +12,7 @@ public class uiShipScript : MonoBehaviour
     public int vesselClassification;
     public Button shipButton;
 
-    public List<tradeGoods> cityInventory = new List<tradeGoods>() { 
+    public List<tradeGoods> shipInventory = new List<tradeGoods>() { 
             new tradeGoods(){ productName="Grain", prefabName="ui/icons/Grain", tier=1, quantity=0 },
             new tradeGoods(){ productName="Timber", prefabName="ui/icons/Timber", tier=1, quantity=0 },
             new tradeGoods(){ productName="Fish", prefabName="ui/icons/Fish", tier=1, quantity=0 },
