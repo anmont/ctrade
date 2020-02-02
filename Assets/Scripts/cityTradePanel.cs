@@ -16,6 +16,8 @@ public class cityTradePanel : MonoBehaviour
     {
         myInstance = this.gameObject;
         //this.gameObject.GetComponent<panel..onClick.AddListener(navigateTo);
+        //EventTrigger triggerA = GetComponent<EventTrigger>();
+        myInstance.GetComponentInChildren<Button>().onClick.AddListener(onExitClick);
         EventTrigger trigger = GetComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = EventTriggerType.Drag;
@@ -55,6 +57,10 @@ public class cityTradePanel : MonoBehaviour
         }
     }
 
+    public void onExitClick()
+    {
+        Destroy(myInstance);
+    }
     public void OnBeginDrag(PointerEventData eventData)
     {
         //Debug.Log("Begin Drag");
@@ -113,6 +119,10 @@ public class cityTradePanel : MonoBehaviour
         {
             Destroy(myInstance);
         }
+        if (cityToTrade == null)
+        {
+            Destroy(myInstance);
+        }
 
         
         int goodsIndex = 0;
@@ -124,7 +134,8 @@ public class cityTradePanel : MonoBehaviour
             Text[] textlist = goods.gameObject.GetComponentsInChildren<Text>();
             textlist[0].text = "0"; //total amount of goods to trade
             textlist[1].text = "1"; //not used
-            textlist[2].text = "¢" + "????"; //Total amount of the trade
+            textlist[2].text = "¢" + "200"; //Total amount of the trade
+            tradeGoods xx = cityToTrade.gameObject.GetComponent<uiCityScript>().cityInventory[goodsIndex];
             textlist[3].text = cityToTrade.GetComponent<uiCityScript>().cityInventory[goodsIndex].quantity.ToString(); //Total amount in the city
             textlist[4].text = vesselToTrade.GetComponent<uiShipScript>().shipInventory[goodsIndex].quantity.ToString(); //Total amount in the vessel
             goodsIndex++;

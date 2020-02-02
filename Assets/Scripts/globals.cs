@@ -122,7 +122,7 @@ public class globals : MonoBehaviour
         globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().calculateProduction();
         //calculate growth
         globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().calculateGrowth();
-        globals.openTradeWindow(globals.shipList[0].gameObject,globals.cityList[0].gameObject);
+        globals.openTradeWindow(globals.cityList[0].gameObject,globals.shipList[0].gameObject);
         
     }
     public static void weeklyTrigger()
