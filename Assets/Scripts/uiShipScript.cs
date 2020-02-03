@@ -13,24 +13,24 @@ public class uiShipScript : MonoBehaviour
     public Button shipButton;
 
     public List<tradeGoods> shipInventory = new List<tradeGoods>() { 
-            new tradeGoods(){ productName="Grain", prefabName="ui/icons/Grain", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Timber", prefabName="ui/icons/Timber", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Fish", prefabName="ui/icons/Fish", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Silver", prefabName="ui/icons/Silver", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Iron", prefabName="ui/icons/Iron", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Copper", prefabName="ui/icons/Copper", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Tin", prefabName="ui/icons/Tin", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Spices", prefabName="ui/icons/Spices", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Perfumes", prefabName="ui/icons/Perfumes", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Gold", prefabName="ui/icons/Gold", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Jewels", prefabName="ui/icons/Jewels", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Leather Goods", prefabName="ui/icons/LeatherGoods", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Silk", prefabName="ui/icons/Silk", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Linen", prefabName="ui/icons/Linen", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Cotton", prefabName="ui/icons/Cotton", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Clothes", prefabName="ui/icons/Cotton", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Salt", prefabName="ui/icons/Salt", perPersonPerYear=0.5, tier=1, quantity=10 },
-            new tradeGoods(){ productName="Slaves", prefabName="ui/icons/Slaves", perPersonPerYear=0.5, tier=1, quantity=10 }
+            new tradeGoods(){ productName="Grain", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Timber", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Fish", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Silver", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Iron", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Copper", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Tin", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Spices", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Perfumes", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Gold", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Jewels", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Leather Goods", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Silk", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Linen", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Cotton", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Clothes", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Salt", perPersonPerYear=0.5, tier=1, quantity=10 },
+            new tradeGoods(){ productName="Slaves", perPersonPerYear=0.5, tier=1, quantity=10 }
         };
         
     public GameObject thisVessel;

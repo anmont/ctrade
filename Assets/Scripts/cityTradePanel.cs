@@ -11,6 +11,10 @@ public class cityTradePanel : MonoBehaviour
     public GameObject vesselToTrade;
     public GameObject myInstance;
     public Transform contentGUI;
+    public int lastUpdateDay = 42;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +23,17 @@ public class cityTradePanel : MonoBehaviour
         //EventTrigger triggerA = GetComponent<EventTrigger>();
         myInstance.GetComponentInChildren<Button>().onClick.AddListener(onExitClick);
         EventTrigger trigger = GetComponent<EventTrigger>();
+
+        EventTrigger.Entry entrype = new EventTrigger.Entry();
+        entrype.eventID = EventTriggerType.PointerEnter;
+        entrype.callback.AddListener((data) => { onPointerEnter(); });
+        trigger.triggers.Add(entrype);
+
+        EventTrigger.Entry entrypx = new EventTrigger.Entry();
+        entrypx.eventID = EventTriggerType.PointerExit;
+        entrypx.callback.AddListener((data) => { onPointerExit(); });
+        trigger.triggers.Add(entrypx);
+
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = EventTriggerType.Drag;
         entry.callback.AddListener((data) => { OnDrag((PointerEventData)data); });
@@ -57,6 +72,14 @@ public class cityTradePanel : MonoBehaviour
         }
     }
 
+    public void onPointerEnter()
+    {
+        GameObject.FindGameObjectWithTag("playerController").GetComponent<PlayerController>().onPointerOver();
+    }
+        public void onPointerExit()
+    {
+        GameObject.FindGameObjectWithTag("playerController").GetComponent<PlayerController>().onPointerExit();
+    }
     public void onExitClick()
     {
         Destroy(myInstance);
@@ -77,7 +100,7 @@ public class cityTradePanel : MonoBehaviour
     {
         Vector2 currentMousePosition = eventData.position;
         Vector2 diff = currentMousePosition - lastMousePosition;
-        Debug.Log("Diff is " + diff.ToString());
+        //Debug.Log("Diff is " + diff.ToString());
         RectTransform rect = GetComponent<RectTransform>();
  
         Vector3 newPosition = rect.position +  new Vector3(diff.x, diff.y, transform.position.z);
@@ -89,7 +112,7 @@ public class cityTradePanel : MonoBehaviour
         }
         lastMousePosition = currentMousePosition;
         //data.delta
-        Debug.Log("Dragging.");
+        //Debug.Log("Dragging.");
     }
     private bool IsRectTransformInsideSreen(RectTransform rectTransform)
     {
@@ -115,6 +138,14 @@ public class cityTradePanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (timeBehavior.gameDate.Day == lastUpdateDay)
+        {
+            return;
+        }
+        else
+        {
+            lastUpdateDay = timeBehavior.gameDate.Day;
+        }
         if (vesselToTrade == null)
         {
             Destroy(myInstance);
@@ -129,6 +160,8 @@ public class cityTradePanel : MonoBehaviour
         while (goodsIndex < 18)
         {
             Transform goods = contentGUI.GetChild(goodsIndex).transform;
+            int cityQty = Mathf.RoundToInt((float)cityToTrade.GetComponent<uiCityScript>().cityInventory[goodsIndex].quantity); //Total amount in the cityMathf.RoundToInt((float)cityToTrade.GetComponent<uiCityScript>().cityInventory[goodsIndex].quantity).ToString(); //Total amount in the city
+            int shipQty = Mathf.RoundToInt((float)vesselToTrade.GetComponent<uiShipScript>().shipInventory[goodsIndex].quantity); //Total amount in the vessel
 
             //for the current good
             Text[] textlist = goods.gameObject.GetComponentsInChildren<Text>();
@@ -136,10 +169,23 @@ public class cityTradePanel : MonoBehaviour
             textlist[1].text = "1"; //not used
             textlist[2].text = "¢" + "200"; //Total amount of the trade
             tradeGoods xx = cityToTrade.gameObject.GetComponent<uiCityScript>().cityInventory[goodsIndex];
-            textlist[3].text = cityToTrade.GetComponent<uiCityScript>().cityInventory[goodsIndex].quantity.ToString(); //Total amount in the city
-            textlist[4].text = vesselToTrade.GetComponent<uiShipScript>().shipInventory[goodsIndex].quantity.ToString(); //Total amount in the vessel
+            textlist[3].text = cityQty.ToString();
+            textlist[4].text = shipQty.ToString();
+
+            //goods.gameObject.GetComponentInChildren<Slider>().minValue = (-1f * (float)shipQty);
+            //goods.gameObject.GetComponentInChildren<Slider>().maxValue = (float)cityQty;
+            //goods.gameObject.GetComponentInChildren<Slider>().value = 0f;
+
+            goods.gameObject.GetComponentInChildren<Slider>().minValue = 0f;
+            goods.gameObject.GetComponentInChildren<Slider>().maxValue = (float)cityQty + (float)shipQty;
+            goods.gameObject.GetComponentInChildren<Slider>().value = 1f + (float)shipQty;
+
+            
+
             goodsIndex++;
         }
+
+        //contentGUI.GetChild(0).gameObject.GetComponent<RawImage>().texture = (Texture)Resources.Load("Assets/icons/grain.png");
 
         
     }
