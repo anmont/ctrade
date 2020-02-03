@@ -172,13 +172,13 @@ public class cityTradePanel : MonoBehaviour
             textlist[3].text = cityQty.ToString();
             textlist[4].text = shipQty.ToString();
 
-            //goods.gameObject.GetComponentInChildren<Slider>().minValue = (-1f * (float)shipQty);
-            //goods.gameObject.GetComponentInChildren<Slider>().maxValue = (float)cityQty;
-            //goods.gameObject.GetComponentInChildren<Slider>().value = 0f;
+            goods.gameObject.GetComponentInChildren<Slider>().minValue = (-1f * (float)shipQty);
+            goods.gameObject.GetComponentInChildren<Slider>().maxValue = (float)cityQty;
+            goods.gameObject.GetComponentInChildren<Slider>().value = 0f;
 
-            goods.gameObject.GetComponentInChildren<Slider>().minValue = 0f;
-            goods.gameObject.GetComponentInChildren<Slider>().maxValue = (float)cityQty + (float)shipQty;
-            goods.gameObject.GetComponentInChildren<Slider>().value = 1f + (float)shipQty;
+            //goods.gameObject.GetComponentInChildren<Slider>().minValue = 0f;
+            //goods.gameObject.GetComponentInChildren<Slider>().maxValue = (float)cityQty + (float)shipQty;
+            //goods.gameObject.GetComponentInChildren<Slider>().value = 1f + (float)shipQty;
 
             
 
