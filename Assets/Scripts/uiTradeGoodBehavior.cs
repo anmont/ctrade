@@ -27,14 +27,19 @@ public class uiTradeGoodBehavior : MonoBehaviour
     {
         GameObject city = thisParentObject.GetComponent<cityTradePanel>().cityToTrade;
         GameObject ship = thisParentObject.GetComponent<cityTradePanel>().vesselToTrade;
-        Debug.Log("Make the trade now");
-        Debug.Log(thisObject.transform.parent.parent.parent.parent.parent.gameObject.name);
+        tradeNow(city,ship,index,thisObject.transform.GetComponentInChildren<Slider>().value);
 
     }
 
     public void tradeNow(GameObject city, GameObject ship, int item, float qty)
     {
-        from.GetComponent<city
+        //sell means ship looses qty
+        ship.GetComponent<uiShipScript>().shipInventory[item].quantity += qty;
+        city.GetComponent<uiCityScript>().cityInventory[item].quantity += (qty * -1);
+
+        //update slider to zero and forcce the update of the values on the next frame
+        thisObject.transform.GetComponentInChildren<Slider>().value = 0;
+        thisParentObject.GetComponent<cityTradePanel>().lastUpdateDay = 52;
     }
 
     public void getUpdate()
