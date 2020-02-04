@@ -166,14 +166,36 @@ public class cityTradePanel : MonoBehaviour
             //for the current good
             Text[] textlist = goods.gameObject.GetComponentsInChildren<Text>();
             textlist[0].text = "0"; //total amount of goods to trade
-            textlist[1].text = "1"; //not used
-            textlist[2].text = "¢" + "200"; //Total amount of the trade
+            textlist[1].text = ""; //not used
+            textlist[2].text = "¢" + "0"; //Total amount of the trade
             tradeGoods xx = cityToTrade.gameObject.GetComponent<uiCityScript>().cityInventory[goodsIndex];
             textlist[3].text = cityQty.ToString();
             textlist[4].text = shipQty.ToString();
 
+
+            //slider max value is the remaining amount of ships goods
+            float maxSlider = 0;
+            float totalInv = 0;
+            foreach (tradeGoods good in vesselToTrade.GetComponent<uiShipScript>().shipInventory)
+            {
+                totalInv += (float)good.quantity;
+            }
+            float storageRemaining = (vesselToTrade.GetComponent<uiShipScript>().vesselStorageSize - totalInv);
+            if (storageRemaining > xx.quantity)
+            {
+                maxSlider = (float)Mathf.RoundToInt((float)xx.quantity);
+            }
+            else if (storageRemaining < 0)
+            {
+                maxSlider = 0;
+            }
+            else
+            {
+                maxSlider = storageRemaining;
+            }
+
             goods.gameObject.GetComponentInChildren<Slider>().minValue = (-1f * (float)shipQty);
-            goods.gameObject.GetComponentInChildren<Slider>().maxValue = (float)cityQty;
+            goods.gameObject.GetComponentInChildren<Slider>().maxValue = maxSlider;
             goods.gameObject.GetComponentInChildren<Slider>().value = 0f;
 
             //goods.gameObject.GetComponentInChildren<Slider>().minValue = 0f;

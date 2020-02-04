@@ -11,5 +11,8 @@ public class tradeGoods
     public double perPersonPerYear { get; set; }
     public double lastConsumptionQty { get; set; }
     public double lastProductionQty { get; set; }
+    public float cityBuyPrice { get; set; }
+    public double citySellPrice { get; set; }
+
 
 }
