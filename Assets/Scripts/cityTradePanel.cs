@@ -82,6 +82,7 @@ public class cityTradePanel : MonoBehaviour
     }
     public void onExitClick()
     {
+        onPointerExit();
         Destroy(myInstance);
     }
     public void OnBeginDrag(PointerEventData eventData)
