@@ -98,6 +98,7 @@ public class globals : MonoBehaviour
 
         //update GUI button for the vessel
         GameObject buttonShip = (GameObject)Instantiate(Resources.Load("shipButton"));
+        buttonShip.GetComponent<btnShip>().thisVessel = newVessel;
         //Button testB = Instantiate(Resources.Load("shipButton"));
         buttonShip.gameObject.transform.SetParent(GameObject.Find("guiVessels").transform);
         buttonShip.gameObject.transform.localScale = new Vector3(1,1,1);
@@ -122,7 +123,7 @@ public class globals : MonoBehaviour
         globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().calculateProduction();
         //calculate growth
         globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().calculateGrowth();
-        globals.openTradeWindow(globals.cityList[0].gameObject,globals.shipList[0].gameObject);
+        //globals.openTradeWindow(globals.cityList[0].gameObject,globals.shipList[0].gameObject);
         
     }
     public static void weeklyTrigger()

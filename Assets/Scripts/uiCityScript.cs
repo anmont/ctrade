@@ -97,6 +97,7 @@ public class uiCityScript : MonoBehaviour
         if (other.transform.gameObject.tag == "Player")
         {
             Debug.Log("Ship " + other.transform.gameObject.name + "has entered the city " + thisCity.name);
+            other.gameObject.GetComponent<uiShipScript>().cityAtAnchor = thisCity;
             other.transform.gameObject.GetComponentInChildren<Projector>().enabled = false;
 
             foreach (MeshRenderer i in other.transform.gameObject.GetComponentsInChildren<MeshRenderer>())
@@ -116,6 +117,8 @@ public class uiCityScript : MonoBehaviour
                 other.transform.gameObject.GetComponentInChildren<Projector>().enabled = true;
             }
             Debug.Log("Ship " + other.transform.gameObject.name + "has exited the city " + thisCity.name);
+            other.gameObject.GetComponent<uiShipScript>().cityAtAnchor = null;
+
             foreach (MeshRenderer i in other.transform.gameObject.GetComponentsInChildren<MeshRenderer>())
             {
                 i.enabled = true;//.enabled = true;

@@ -11,6 +11,7 @@ public class uiShipScript : MonoBehaviour
     public int vesselStorageSize;
     public int vesselClassification;
     public Button shipButton;
+    public GameObject cityAtAnchor;
 
     public List<tradeGoods> shipInventory = new List<tradeGoods>() { 
             new tradeGoods(){ productName="Grain", perPersonPerYear=0.5, tier=1, quantity=5 },
