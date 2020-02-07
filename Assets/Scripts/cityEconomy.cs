@@ -147,7 +147,12 @@ public class cityEconomy : MonoBehaviour
             {
                 double dailyConsumption = (double)population/(365/product.perPersonPerYear);
                 product.lastConsumptionQty = dailyConsumption;
-                product.quantity = product.quantity - dailyConsumption;
+                double temp = product.quantity - dailyConsumption;
+                if (temp < 0)
+                {
+                    temp = 0;
+                }
+                product.quantity = temp;
                 i++;
             }
         }

@@ -117,10 +117,13 @@ public class globals : MonoBehaviour
         // TODO create coroutines for each
         calculateShipUpkeep();
         //Calculate City Growth
-        //Calculate CIty Consumption
-        globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().calculateConsumption();
+
         //Calculate City Production
         globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().calculateProduction();
+
+        //Calculate CIty Consumption
+        globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().calculateConsumption();
+
         //calculate growth
         globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().calculateGrowth();
         //globals.openTradeWindow(globals.cityList[0].gameObject,globals.shipList[0].gameObject);
