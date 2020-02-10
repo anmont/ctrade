@@ -73,17 +73,17 @@ void Start() {
  public void GenerateHeights(Terrain terrain, float tileSize)
  {
      Debug.Log ("Start_Height_Gen");
-     float[,] heights = new float[terrain.terrainData.heightmapWidth, terrain.terrainData.heightmapHeight];
-     float[,] heightsFin = new float[terrain.terrainData.heightmapWidth, terrain.terrainData.heightmapHeight];
-     float[,] heightsOrig = new float[terrain.terrainData.heightmapWidth, terrain.terrainData.heightmapHeight];
+     float[,] heights = new float[terrain.terrainData.heightmapResolution, terrain.terrainData.heightmapResolution];
+     float[,] heightsFin = new float[terrain.terrainData.heightmapResolution, terrain.terrainData.heightmapResolution];
+     float[,] heightsOrig = new float[terrain.terrainData.heightmapResolution, terrain.terrainData.heightmapResolution];
 
      float seed = (float)Random.Range(1,10000) / 10000f;
      float seedx = (float)Random.Range(30,70);
      float seedy = (float)Random.Range(30,70);
      
-     for (int i = 0; i < terrain.terrainData.heightmapWidth; i++)
+     for (int i = 0; i < terrain.terrainData.heightmapResolution; i++)
      {
-         for (int k = 0; k < terrain.terrainData.heightmapHeight; k++)
+         for (int k = 0; k < terrain.terrainData.heightmapResolution; k++)
          {
              //heights[i, k] = 0.25f + Mathf.PerlinNoise(((float)i / (float)terrain.terrainData.heightmapWidth) * tileSize, ((float)k / (float)terrain.terrainData.heightmapHeight) * tileSize);
              float pa = Random.Range(1,10000) / 10000;
