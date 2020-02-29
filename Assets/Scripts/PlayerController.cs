@@ -28,6 +28,17 @@ public void onPointerExit()
     pointerOnUi = false;
     //Debug.Log("pointer on ui");
 }
+
+public void meshCellDensity(float newHeight)
+{
+
+    Renderer myWater = GameObject.Find("visibleWaterPlane").GetComponent<MeshRenderer>();
+    float setheight = (newHeight * 1.542f);
+    //myWater.GetComponent<Shader>().FindPassTagValue;
+    myWater.material.SetFloat("cellDensity", setheight);
+
+
+}
 public void onPointerOver()
 {
     pointerOnUi = true;
@@ -56,6 +67,7 @@ public void onPointerOver()
                     {
                         myCamera.position = desiredHeight;
                     }
+                    meshCellDensity(desiredHeight.y);
                 }
             }
 
