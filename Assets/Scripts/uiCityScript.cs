@@ -98,7 +98,8 @@ public class uiCityScript : MonoBehaviour
         {
             Debug.Log("Ship " + other.transform.gameObject.name + "has entered the city " + thisCity.name);
             other.gameObject.GetComponent<uiShipScript>().cityAtAnchor = thisCity;
-            other.transform.gameObject.GetComponentInChildren<Projector>().enabled = false;
+            //other.transform.gameObject.GetComponentInChildren<Projector>().enabled = false;
+            other.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = false;
 
             foreach (MeshRenderer i in other.transform.gameObject.GetComponentsInChildren<MeshRenderer>())
             {
@@ -114,7 +115,8 @@ public class uiCityScript : MonoBehaviour
         {
             if (globals.selectedVessel == other.transform.gameObject)
             {
-                other.transform.gameObject.GetComponentInChildren<Projector>().enabled = true;
+                //other.transform.gameObject.GetComponentInChildren<Projector>().enabled = true;
+                other.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = true;
             }
             Debug.Log("Ship " + other.transform.gameObject.name + "has exited the city " + thisCity.name);
             other.gameObject.GetComponent<uiShipScript>().cityAtAnchor = null;

@@ -57,7 +57,9 @@ public class uiShipScript : MonoBehaviour
         if (globals.selectedVessel != null)
         {
             //disable the selected ring
-            globals.selectedVessel.GetComponentInChildren<Projector>().enabled = false;
+            globals.selectedVessel.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = false;
+            
+            //globals.selectedVessel.GetComponentInChildren<Projector>().enabled = false;
         }
 
 
@@ -66,7 +68,8 @@ public class uiShipScript : MonoBehaviour
         //enable selection ring of this vessel
         if (globals.selectedVessel.gameObject.GetComponent<uiShipScript>().location == "At Sea")
         {
-            globals.selectedVessel.GetComponentInChildren<Projector>().enabled = true;
+            globals.selectedVessel.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = true;
+            //globals.selectedVessel.GetComponentInChildren<Projector>().enabled = true;
         }
 
         Camera.main.gameObject.transform.position = new Vector3(thisVessel.transform.position.x, Camera.main.gameObject.transform.position.y, thisVessel.transform.position.z) ;

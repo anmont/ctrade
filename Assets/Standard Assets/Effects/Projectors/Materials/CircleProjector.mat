@@ -8,7 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: CircleProjector
-  m_Shader: {fileID: 4800000, guid: c0ace1ca4bc0718448acf798c93d52d9, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: ae32772e5d1873c4084dd976cf5d446c,
+    type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -46,6 +47,7 @@ Material:
     m_Floats: []
     m_Colors:
     - BumpMapScale: {r: 1, g: 1, b: 1, a: 1}
+    - Color_65A5D1FB: {r: 0, g: 0.1061857, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ProjectorClip_0: {r: -0.015438232, g: -0.025866693, b: 0.14460614, a: 0.29360974}
     - _ProjectorClip_1: {r: 0.0047582523, g: 0.14523815, b: 0.026487738, a: 0.0030641258}
