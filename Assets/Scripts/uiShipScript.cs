@@ -48,31 +48,46 @@ public class uiShipScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        
+        /*if (globals.selectedVessel != null)
+        {
+            if (globals.selectedVessel == thisVessel)
+            {
+                globals.selectedVessel.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = true;
+                //globals.selectedVessel.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = false;
+                //globals.selectedVessel = thisVessel;
+            }
+            else
+            {
+                globals.selectedVessel.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = false;
+            }
+        }
+        */
     }
 
     public void selectThisVessel()
     {
-        if (globals.selectedVessel != null)
+        if (globals.selectedVessel != thisVessel)
         {
-            //disable the selected ring
-            globals.selectedVessel.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = false;
-            
-            //globals.selectedVessel.GetComponentInChildren<Projector>().enabled = false;
+            if (globals.selectedVessel != null)
+            {
+                //disable the selected ring
+                globals.selectedVessel.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = false;
+                
+                //globals.selectedVessel.GetComponentInChildren<Projector>().enabled = false;
+            }
+
+
+            globals.selectedVessel = thisVessel;
+
+            //enable selection ring of this vessel
+            if (globals.selectedVessel.gameObject.GetComponent<uiShipScript>().location == "At Sea")
+            {
+                globals.selectedVessel.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = true;
+                //globals.selectedVessel.GetComponentInChildren<Projector>().enabled = true;
+            }
+
+            Camera.main.gameObject.transform.position = new Vector3(thisVessel.transform.position.x, Camera.main.gameObject.transform.position.y, thisVessel.transform.position.z) ;
         }
-
-
-        globals.selectedVessel = thisVessel;
-
-        //enable selection ring of this vessel
-        if (globals.selectedVessel.gameObject.GetComponent<uiShipScript>().location == "At Sea")
-        {
-            globals.selectedVessel.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = true;
-            //globals.selectedVessel.GetComponentInChildren<Projector>().enabled = true;
-        }
-
-        Camera.main.gameObject.transform.position = new Vector3(thisVessel.transform.position.x, Camera.main.gameObject.transform.position.y, thisVessel.transform.position.z) ;
 
     }
 }

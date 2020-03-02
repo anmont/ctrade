@@ -29,16 +29,16 @@ public void onPointerExit()
     //Debug.Log("pointer on ui");
 }
 
-public void meshCellDensity(float newHeight)
-{
+//public void meshCellDensity(float newHeight)
+//{
 
-    Renderer myWater = GameObject.Find("visibleWaterPlane").GetComponent<MeshRenderer>();
-    float setheight = (newHeight * 1.542f);
+//    Renderer myWater = GameObject.Find("visibleWaterPlane").GetComponent<MeshRenderer>();
+//    float setheight = (newHeight * 1.542f);
     //myWater.GetComponent<Shader>().FindPassTagValue;
-    myWater.material.SetFloat("cellDensity", setheight);
+//    myWater.material.SetFloat("cellDensity", setheight);
 
 
-}
+//}
 public void onPointerOver()
 {
     pointerOnUi = true;
@@ -67,7 +67,7 @@ public void onPointerOver()
                     {
                         myCamera.position = desiredHeight;
                     }
-                    meshCellDensity(desiredHeight.y);
+                    //meshCellDensity(desiredHeight.y);
                 }
             }
 
@@ -110,11 +110,43 @@ public void onPointerOver()
                 {
                     if (!pointerOnUi)
                     {
-                        if (globals.selectedVessel != null)
+                        //click is not on UI.... lets decide what to do
+                        //Tag is Player or tag is City
+                        Debug.Log(hit.transform.gameObject.name.ToString());
+                        if (hit.transform.gameObject.tag == "City")
+                        {
+                            if (globals.selectedVessel != null)
+                            {
+                                globals.selectedVessel.gameObject.GetComponent<NavMeshAgent>().SetDestination(hit.transform.position);
+                                //globals.selectedVessel.gameObject.GetComponent<NavMeshAgent>()..SetDestination(hit.point);
+                            }
+                        }
+                        else if (hit.transform.gameObject.tag == "Player")
+                        {
+                            //if same vessel... do nothing for now but open properties
+                            if (hit.transform.gameObject.name == globals.selectedVessel.gameObject.name)
+                            {
+
+                            }
+                            else
+                            {
+                                hit.transform.gameObject.GetComponent<uiShipScript>().selectThisVessel();
+                                //globals.selectedVessel = hit.transform.gameObject;
+                                //Camera.main.gameObject.transform.position = new Vector3(globals.selectedVessel.transform.position.x, Camera.main.gameObject.transform.position.y, globals.selectedVessel.transform.position.z) ;
+                            }
+                            //If another vessel ... select that vessel as active
+                        }
+                        else if (globals.selectedVessel != null)
                         {
                             globals.selectedVessel.gameObject.GetComponent<NavMeshAgent>().SetDestination(hit.point);
                             //globals.selectedVessel.gameObject.GetComponent<NavMeshAgent>()..SetDestination(hit.point);
-                        }
+                        } 
+                        //click on ship that is selected vessel (vessel properties)
+
+                        //click on ship that is not selected vessel (select that vessel)
+                        //Click on a city (move vessel to the city)
+
+                        
                         //agent.SetDestination(hit.point);
                     }
                 }

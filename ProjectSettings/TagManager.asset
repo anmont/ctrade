@@ -8,6 +8,7 @@ TagManager:
   - globalsScript
   - navMeshSurface
   - playerController
+  - City
   layers:
   - Default
   - TransparentFX

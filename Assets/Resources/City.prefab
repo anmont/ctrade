@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5154779296697460482}
   m_Layer: 0
   m_Name: City
-  m_TagString: Untagged
+  m_TagString: City
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,6 +63,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -132,6 +133,16 @@ MonoBehaviour:
   thisCityScript: {fileID: 0}
   thisCity: {fileID: 0}
   thisCityGuiButton: {fileID: 0}
+  cityPopulation: 0
+  productionMaterial1: 50
+  productionMaterial2: 50
+  productionMaterial3: 50
+  cityProsperity: 0
+  cityGrowth: 0
+  cityWealth: 0
+  cityProsperityFloat: []
+  cityGrowthFloat: []
+  cityWealthFloat: []
 --- !u!222 &5154779296697460482
 CanvasRenderer:
   m_ObjectHideFlags: 0
