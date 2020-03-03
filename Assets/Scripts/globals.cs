@@ -9,6 +9,7 @@ public class globals : MonoBehaviour
     public GameObject shipParentPanel;
     public static double playerCash = 100000;
     public static GameObject escapeMenu;
+    public static GameObject terrainGenI;
     public static GameObject cityEconomyInstance;
     public static GameObject selectedVessel;
     public static GameObject time;

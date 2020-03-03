@@ -1,17 +1,19 @@
-﻿
+﻿using Mirror;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine.AI;
- public class terrainGen : MonoBehaviour {
+ public class terrainGen : NetworkBehaviour {
  public float Tiling = 0.5f;
  private bool active = false;
  public int mapHeight = 1000;
  public static List<string> cityList = new List<string>();
  
+
 void Start() {
-    Begin();    
+    globals.terrainGenI = this.gameObject;
+    //Begin();    
 
     cityList.Add("Cloudfall");
     cityList.Add("Honeyfair");
@@ -70,8 +72,10 @@ void Start() {
          }
      }
  }
+ [Server]
  public void GenerateHeights(Terrain terrain, float tileSize)
  {
+     
      Debug.Log ("Start_Height_Gen");
      float[,] heights = new float[terrain.terrainData.heightmapResolution, terrain.terrainData.heightmapResolution];
      float[,] heightsFin = new float[terrain.terrainData.heightmapResolution, terrain.terrainData.heightmapResolution];
@@ -128,7 +132,9 @@ void Start() {
  }
 
 
+
 //public static void generateCities ()
+[Server] 
 IEnumerator generateCities()
 {
     int city = 0;

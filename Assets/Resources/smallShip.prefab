@@ -1064,6 +1064,8 @@ GameObject:
   - component: {fileID: 6486204550187848481}
   - component: {fileID: 180332344616902614}
   - component: {fileID: 2146426365700085781}
+  - component: {fileID: 1027511888998346665}
+  - component: {fileID: -5688961412623053520}
   m_Layer: 8
   m_Name: smallShip
   m_TagString: Player
@@ -1374,6 +1376,40 @@ MonoBehaviour:
   shipButton: {fileID: 0}
   cityAtAnchor: {fileID: 0}
   thisVessel: {fileID: 0}
+--- !u!114 &1027511888998346665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131302768361692846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+--- !u!114 &-5688961412623053520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131302768361692846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.2
+  clientAuthority: 0
+  localPositionSensitivity: 0.2
+  localRotationSensitivity: 0.2
+  localScaleSensitivity: 0.2
+  compressRotation: 1
 --- !u!1 &1131302768432682253
 GameObject:
   m_ObjectHideFlags: 0
