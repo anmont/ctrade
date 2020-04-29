@@ -11,6 +11,16 @@ using UnityEngine.AI;
  public static List<string> cityList = new List<string>();
  
 void Start() {
+    if (StaticClass.saveFileName == "newgame")
+    {
+        // Start a new city
+        Debug.Log("I am starting the new city Generation");
+    }
+    else
+    {
+        //Load New Game
+        Debug.Log("I am loading the game " + Application.persistentDataPath.ToString() + "/saves/" + StaticClass.saveFileName);
+    }
     Begin();    
 
     cityList.Add("Cloudfall");
