@@ -9,7 +9,7 @@ public class timeBehavior : MonoBehaviour
     public static DateTime startDate = new DateTime(1375,1,1);
     public static DateTime gameDate =new DateTime(1375,1,1); 
     public static string gameDateString;
-    public float cumulativeTime; //TODO needs serialized in game saves!!!!
+    public static float cumulativeTime; //TODO needs serialized in game saves!!!!
     public float gameDays;
     public int temp = 0;
     public int lastTemp = 0;

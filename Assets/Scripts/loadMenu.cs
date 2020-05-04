@@ -32,6 +32,7 @@ public class loadMenu : MonoBehaviour
         //get list of all saved games and preload objects in the list.
         //Application.persistentDataPath
         DirectoryInfo dir = new DirectoryInfo(Application.persistentDataPath.ToString() + "/saves");
+        StaticClass.savePath = Application.persistentDataPath.ToString() + "/saves/";
         //Debug.Log(Application.persistentDataPath.ToString() + "/saves");
 
         FileInfo[] info = dir.GetFiles("*.trdr");
@@ -95,4 +96,5 @@ public class loadMenu : MonoBehaviour
 public static class StaticClass 
 {
     public static string saveFileName { get; set; }
+    public static string savePath { get; set; }
 }

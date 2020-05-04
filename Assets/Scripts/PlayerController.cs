@@ -47,6 +47,16 @@ public void onPointerOver()
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.F5))
+        {
+            string datestring = timeBehavior.gameDate.Year + "_" + timeBehavior.gameDate.Month + "_" + timeBehavior.gameDate.Day;
+            StaticClass.saveFileName = "quicksave" + datestring + ".trdr";
+            if (StaticClass.savePath == null)
+            {
+                StaticClass.savePath = Application.persistentDataPath.ToString() + "/saves/";
+            }
+            globals.saveInstance.save();
+        }
         if (!escMenuHandler.escapeMenuVisible)
         {
             if (Input.GetButton("Vertical") || Input.GetButton("Horizontal") )

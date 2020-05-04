@@ -8,7 +8,9 @@ public class globals : MonoBehaviour
 
     public GameObject shipParentPanel;
     public static double playerCash = 100000;
+    public static saveScript saveInstance;
     public static GameObject escapeMenu;
+    public static Vector3 mapSeed;
     public static GameObject cityEconomyInstance;
     public static GameObject selectedVessel;
     public static GameObject time;
@@ -42,32 +44,42 @@ public class globals : MonoBehaviour
 
 
     }
-    public static GameObject createCity(Vector3 landHitLoc)
+    public static GameObject createCity(Vector3 landHitLoc, string load = "n")
     {
         //create gameobject
         GameObject newCity = (GameObject)Instantiate(Resources.Load("City"),landHitLoc,Quaternion.identity);
-        newCity.transform.SetParent(cityGroup.transform);
-        //get a random name from the list
-        int randMe = Random.Range(0,terrainGen.cityList.Count);
-        newCity.name = terrainGen.cityList[randMe];
-        terrainGen.cityList.RemoveAt(randMe);
-        //Add the city to the city list
-        globals.cityList.Add(newCity);
+        newCity.transform.SetParent(cityGroup.transform,false);
+
+        
         //give the city the object reference TODO remove this and have the start script update this info
         newCity.GetComponent<uiCityScript>().thisCity = newCity;
 
-        //give the city production assignment
-        globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().determineProduction(newCity);
+        if (load == "y")
+        {
 
-        //give the city a population
-        globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().determinePopulation(newCity);
+        }
+        else
+        {
+            //get a random name from the list
+            int randMe = Random.Range(0,terrainGen.cityList.Count);
+            newCity.name = terrainGen.cityList[randMe];
+            terrainGen.cityList.RemoveAt(randMe);
+            //give the city production assignment
+            globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().determineProduction(newCity);
+
+            //give the city a population
+            globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().determinePopulation(newCity);
+        }
+
+        //Add the city to the city list
+        globals.cityList.Add(newCity);
 
         //TODO Determine what the starting population of the city should be
         //TODO Determine what products the city should produce
 
         return newCity;
     }
-    public static void createVessel(Vector3 location, int size)
+    public static GameObject createVessel(Vector3 location, int size, string shipName = "none")
     {
         string prefabName = "";
         if (size == 0)
@@ -83,14 +95,28 @@ public class globals : MonoBehaviour
             prefabName = "largeShip";
         }
 
+        //deal with globals loading before scene
+        if (cityGroup == null)
+        {
+            cityGroup = GameObject.Find("cityGroup").gameObject;
+            shipGroup = GameObject.Find("shipGroup").gameObject;
+        }
+
         //innstantiate
         GameObject newVessel = (GameObject)Instantiate(Resources.Load(prefabName), location, Quaternion.identity);
-        newVessel.transform.SetParent(shipGroup.transform);
+        newVessel.transform.SetParent(shipGroup.transform, false);
 
         //Name the vessel
-        int randMe = Random.Range(0,vesselList.Count);
-        newVessel.name = vesselList[randMe];
-        vesselList.RemoveAt(randMe);
+        if (shipName == "none")
+        {
+            int randMe = Random.Range(0,vesselList.Count);
+            newVessel.name = vesselList[randMe];
+            vesselList.RemoveAt(randMe);
+        }
+        else
+        {
+            newVessel.name = shipName;
+        }
 
         //update vessel list
         shipList.Add(newVessel);
@@ -109,6 +135,8 @@ public class globals : MonoBehaviour
         //selectedVessel = newVessel;
         newVessel.gameObject.GetComponent<uiShipScript>().selectThisVessel();
         Camera.main.gameObject.transform.position = new Vector3(newVessel.transform.position.x, Camera.main.gameObject.transform.position.y, newVessel.transform.position.z) ;
+        
+        return newVessel;
     }
 
     public static void dailyTrigger()
