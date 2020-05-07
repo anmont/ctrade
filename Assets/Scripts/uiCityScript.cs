@@ -23,7 +23,17 @@ public class uiCityScript : MonoBehaviour
 
     
     //store button prefab instance here so can update
-    public List<tradeGoods> cityInventory = new List<tradeGoods>() { 
+    public List<tradeGoods> cityInventory;
+    // Start is called before the first frame update
+    void Start()
+    {
+        thisCityScript = this.gameObject;
+        //thisCity = this.transform.parent.gameObject;
+        thisCity = this.gameObject;
+        createButton();
+        thisCityGuiButton.onClick.AddListener(navigateTo);
+        // create button prefacb
+        cityInventory = new List<tradeGoods>() { 
             new tradeGoods(){ productName="Grain", perPersonPerYear=0.5, tier=1, quantity=500, cityBuyPrice=35, citySellPrice=49 },
             new tradeGoods(){ productName="Timber", perPersonPerYear=0.5, tier=1, quantity=500, cityBuyPrice=35, citySellPrice=49 },
             new tradeGoods(){ productName="Fish", perPersonPerYear=0.5, tier=1, quantity=500, cityBuyPrice=35, citySellPrice=49 },
@@ -43,15 +53,6 @@ public class uiCityScript : MonoBehaviour
             new tradeGoods(){ productName="Salt", perPersonPerYear=0.5, tier=1, quantity=500, cityBuyPrice=35, citySellPrice=49 },
             new tradeGoods(){ productName="Slaves", perPersonPerYear=0.5, tier=1, quantity=500, cityBuyPrice=35, citySellPrice=49 }
         };
-    // Start is called before the first frame update
-    void Start()
-    {
-        thisCityScript = this.gameObject;
-        //thisCity = this.transform.parent.gameObject;
-        thisCity = this.gameObject;
-        createButton();
-        thisCityGuiButton.onClick.AddListener(navigateTo);
-        // create button prefacb
     }
 
     // Update is called once per frame

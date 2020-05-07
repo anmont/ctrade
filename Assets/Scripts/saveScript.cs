@@ -23,9 +23,9 @@ public class saveScript : MonoBehaviour
             
             //get ship details
             thisVessel.shipname = vessel.name;
-            thisVessel.locationy = vessel.transform.position.x;
+            thisVessel.locationx = vessel.transform.position.x;
             thisVessel.locationy = vessel.transform.position.y;
-            thisVessel.locationy = vessel.transform.position.z;
+            thisVessel.locationz = vessel.transform.position.z;
             thisVessel.shipInventory = vessel.GetComponent<uiShipScript>().shipInventory;
 
             shipLists.Add(thisVessel);
@@ -64,9 +64,14 @@ public class saveScript : MonoBehaviour
         newGameSave.shipSaveFormat = shipLists;
         newGameSave.citySaveFormat = cityLists;
 
+        //make sure the save director works
+
+
         //write save file
         var binaryFormatter = new BinaryFormatter();
         string file = StaticClass.savePath + StaticClass.saveFileName;
+        FileInfo fileP = new FileInfo(StaticClass.savePath);
+        fileP.Directory.Create();
         Debug.Log(file);
         using (var fileStream = File.Create(file))
         {
@@ -89,18 +94,6 @@ public class saveScript : MonoBehaviour
 
         globals.mapSeed = new Vector3(loadGameSave.mapseedx,loadGameSave.mapseedy, loadGameSave.mapseedz);
 
-        //TerrainData terrainData = new TerrainData ();
-        //const int size = 513;
-        //terrainData.heightmapResolution = size;
-        //terrainData.size = new Vector3 (1000, 1000, 1000);
-
-        //terrainData.heightmapResolution = 513;
-        //terrainData.baseMapResolution = 1024;
-        //terrainData.SetDetailResolution (1024, 32);
-        //Terrain.CreateTerrainGameObject (terrainData);
-        //GameObject obj = GameObject.Find ("Terrain");
-        //obj.transform.parent = this.transform;
-
 
         terrainGen.reGenerateHeights();
 
@@ -110,7 +103,7 @@ public class saveScript : MonoBehaviour
             GameObject newShip = globals.createVessel(location,0,ship.shipname);
             newShip.GetComponent<uiShipScript>().shipInventory = ship.shipInventory;
 
-            Debug.Log(newShip.name + " was created");
+            Debug.Log(newShip.name + " was created at location " + ship.locationx + "," + ship.locationx + "," + ship.locationx);
         }
 
         foreach (saveCity city in loadGameSave.citySaveFormat)

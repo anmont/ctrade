@@ -10,6 +10,7 @@ using UnityEngine.AI;
  public int mapHeight = 1000;
  public static List<string> cityList = new List<string>();
  public bool newGame = true;
+
  
 void Start() {
     if (StaticClass.saveFileName == "newgame")
@@ -97,19 +98,23 @@ void Start() {
 
 public static void heightGenerator (Vector3 mapSeed)
 {
+    float peakCap = 0.6f;
+    GameObject terrainObj = GameObject.Find("Terrain");
+    Terrain terrain = terrainObj.GetComponent<Terrain>();
+
     Debug.Log ("Start_Height_Gen_v2");
-    TerrainData terrainDataSet = new TerrainData ();
+    TerrainData terrainDataSet = terrain.terrainData;
     const int size = 513;
     terrainDataSet.heightmapResolution = size;
     terrainDataSet.size = new Vector3 (1000, 50, 1000);
     terrainDataSet.heightmapResolution = 513;
     terrainDataSet.baseMapResolution = 1024;
     terrainDataSet.SetDetailResolution (1024, 32);
-    Terrain.CreateTerrainGameObject (terrainDataSet);
+    //Terrain.CreateTerrainGameObject (terrainDataSet);
 
-    float tileSize = 0.5f;
-    GameObject terrainObj = GameObject.Find("Terrain");
-    Terrain terrain = terrainObj.GetComponent<Terrain>();
+    //float tileSize = 0.5f;
+    //GameObject terrainObj = GameObject.Find("Terrain");
+    //Terrain terrain = terrainObj.GetComponent<Terrain>();
 
     float[,] heights = new float[terrain.terrainData.heightmapResolution, terrain.terrainData.heightmapResolution];
     float[,] heightsFin = new float[terrain.terrainData.heightmapResolution, terrain.terrainData.heightmapResolution];
@@ -143,6 +148,11 @@ public static void heightGenerator (Vector3 mapSeed)
         for (int k = 0; k < terrain.terrainData.heightmapResolution; k++)
         {
             heights[i, k] = Mathf.PerlinNoise(((float)i + seed)/seedx, ((float)k + seed)/seedy);
+            if (heights[i, k] > peakCap)
+            {
+                heights[i, k] = peakCap;
+            }
+            // height peak 
             //heights[i, k] = 0.25f + Mathf.PerlinNoise(((float)i / (float)terrain.terrainData.heightmapWidth) * tileSize, ((float)k / (float)terrain.terrainData.heightmapHeight) * tileSize);
              //float pa = Random.Range(1,10000) / 10000;
              //heights[i, k] = Mathf.PerlinNoise((float)i / (512f + pa), (float)k / (512f + pa));
@@ -159,12 +169,12 @@ public static void heightGenerator (Vector3 mapSeed)
              //heights[i, k] *= makeMask( terrain.terrainData.heightmapWidth, terrain.terrainData.heightmapHeight, i, k, heights[i, k] );
         }
     }
-    terrain.terrainData.SetHeightsDelayLOD(0, 0, heights);
-    //terrain.terrainData.SetHeights(0, 0, heights);
+    //terrain.terrainData.SetHeightsDelayLOD(0, 0, heights);
+    terrain.terrainData.SetHeights(0, 0, heights);
 
-    terrain.GetComponent<Transform>().position = new Vector3(-500, -30,-500);
+    terrain.GetComponent<Transform>().position = new Vector3(-500, -28f,-500);
 
-    terrain.ApplyDelayedHeightmapModification();
+    //terrain.ApplyDelayedHeightmapModification();
     terrain.Flush();
     //heightsFin = terrain.terrainData.GetHeights(0,0,terrain.terrainData.heightmapWidth, terrain.terrainData.heightmapHeight);
     //Terrain obj = GameObject.Find ("TerrainA").GetComponent<Terrain>();
@@ -180,6 +190,9 @@ public static void heightGenerator (Vector3 mapSeed)
     Vector3 navMeshLoc = GameObject.FindGameObjectWithTag("navMeshSurface").GetComponent<Transform>().position;
     navMeshLoc = new Vector3(0,-0.5f,0);
     //generateCities();
+    
+    //GameObject waterlayer = GameObject.Find("Water");
+    //waterlayer.transform.position = new Vector3(waterlayer.transform.position.x,-30f,waterlayer.transform.position.z);
 
 }
 

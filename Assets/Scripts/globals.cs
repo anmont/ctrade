@@ -44,11 +44,19 @@ public class globals : MonoBehaviour
 
 
     }
-    public static GameObject createCity(Vector3 landHitLoc, string load = "n")
+    public static GameObject createCity(Vector3 location, string load = "n")
     {
+        Vector3 landHitLoc = Vector3.zero;
+        RaycastHit hit;
+        //normalize height
+        Physics.Raycast(new Vector3(location.x, 100 , location.z), Vector3.down, out hit , 150f);
+        landHitLoc = hit.point;
+        landHitLoc.y = 1.5f;
+
         //create gameobject
         GameObject newCity = (GameObject)Instantiate(Resources.Load("City"),landHitLoc,Quaternion.identity);
         newCity.transform.SetParent(cityGroup.transform,false);
+        newCity.transform.position = landHitLoc;
 
         
         //give the city the object reference TODO remove this and have the start script update this info
@@ -135,6 +143,7 @@ public class globals : MonoBehaviour
         //selectedVessel = newVessel;
         newVessel.gameObject.GetComponent<uiShipScript>().selectThisVessel();
         Camera.main.gameObject.transform.position = new Vector3(newVessel.transform.position.x, Camera.main.gameObject.transform.position.y, newVessel.transform.position.z) ;
+        newVessel.transform.position = location;
         
         return newVessel;
     }
@@ -145,6 +154,13 @@ public class globals : MonoBehaviour
         // TODO create coroutines for each
         calculateShipUpkeep();
         //Calculate City Growth
+
+
+        Debug.Log("Terrain location = " + GameObject.Find("Terrain").transform.position.ToString());
+        Debug.Log("Water location = " + GameObject.Find("Water").transform.position.ToString());
+        Debug.Log("City 0 location = " + cityList[0].transform.position.ToString());
+        Debug.Log("Ship 0 location = " + shipList[0].transform.position.ToString());
+
 
         //Calculate City Production
         globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().calculateProduction();
