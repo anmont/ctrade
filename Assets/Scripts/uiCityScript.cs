@@ -97,7 +97,7 @@ public class uiCityScript : MonoBehaviour
         
         if (other.transform.gameObject.tag == "Player")
         {
-            Debug.Log("Ship " + other.transform.gameObject.name + "has entered the city " + thisCity.name);
+            //Debug.Log("Ship " + other.transform.gameObject.name + "has entered the city " + thisCity.name);
             other.gameObject.GetComponent<uiShipScript>().cityAtAnchor = thisCity;
             //other.transform.gameObject.GetComponentInChildren<Projector>().enabled = false;
             other.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = false;
@@ -106,6 +106,21 @@ public class uiCityScript : MonoBehaviour
             {
                 i.enabled = false;
                 other.transform.gameObject.GetComponent<uiShipScript>().location = thisCity.name;
+            }
+        
+        //thisCity.name & other.transform.gameObject.name
+        }
+        if (other.transform.gameObject.tag == "ai")
+        {
+            //Debug.Log("Ship " + other.transform.gameObject.name + "has entered the city " + thisCity.name);
+            other.gameObject.GetComponent<aiShipScript>().cityAtAnchor = thisCity;
+            //other.transform.gameObject.GetComponentInChildren<Projector>().enabled = false;
+            other.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = false;
+
+            foreach (MeshRenderer i in other.transform.gameObject.GetComponentsInChildren<MeshRenderer>())
+            {
+                i.enabled = false;
+                other.transform.gameObject.GetComponent<aiShipScript>().location = thisCity.name;
             }
         
         //thisCity.name & other.transform.gameObject.name
@@ -126,6 +141,22 @@ public class uiCityScript : MonoBehaviour
             {
                 i.enabled = true;//.enabled = true;
                 other.transform.gameObject.GetComponent<uiShipScript>().location = "At Sea";
+            }
+        }
+         if (other.transform.gameObject.tag == "ai")
+        {
+            if (globals.selectedVessel == other.transform.gameObject)
+            {
+                //other.transform.gameObject.GetComponentInChildren<Projector>().enabled = true;
+                other.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = true;
+            }
+            Debug.Log("Ship " + other.transform.gameObject.name + "has exited the city " + thisCity.name);
+            other.gameObject.GetComponent<aiShipScript>().cityAtAnchor = null;
+
+            foreach (MeshRenderer i in other.transform.gameObject.GetComponentsInChildren<MeshRenderer>())
+            {
+                i.enabled = true;//.enabled = true;
+                other.transform.gameObject.GetComponent<aiShipScript>().location = "At Sea";
             }
         }
     }

@@ -20,6 +20,7 @@ public class timeBehavior : MonoBehaviour
     public int lastSundayWeek;
     public int lastYear = 1375;
     public int lastDay = 1;
+    public bool everyOtherDay = false;
 
     public void changeTimeScale(float value)
     {
@@ -85,12 +86,24 @@ public class timeBehavior : MonoBehaviour
             }
         }
 
+        //every other day piggyback
+
         //Daily Trigger
         if(gameDate.Day != lastDay)
         {
             // TODO start co-routine for job
             lastDay = gameDate.Day;
             globals.dailyTrigger();
+
+            if (everyOtherDay == false)
+            {
+                everyOtherDay = true;
+            }
+            else
+            {
+                everyOtherDay = false;
+                globals.everyOtherDayTrigger();
+            }
         }
 
         //Monthly trigger

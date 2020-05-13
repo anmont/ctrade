@@ -219,6 +219,110 @@ public class cityEconomy : MonoBehaviour
 
     }
 
+    private int findListByID(int id)
+    {
+        int retval = -1;
+        retval = globals.aiTradJobList.FindIndex(item => item.id == id);
+
+        return retval;
+    }
+
+    private GameObject findDonerCity(int goodIndex)
+    {
+        GameObject cityObject = null;
+        double smallestQTY = 5000;
+
+        foreach (GameObject city in globals.cityList)
+        {
+            //find lowest quantiy of the index item
+            if (city.GetComponent<uiCityScript>().cityInventory[goodIndex].quantity < smallestQTY)
+            {
+                smallestQTY = city.GetComponent<uiCityScript>().cityInventory[goodIndex].quantity;
+                cityObject = city;
+            }
+        }
+
+        return cityObject;
+    }
+    public void determineCityJobs()
+    {
+        foreach (GameObject city in globals.cityList)
+        {
+            int cityID = city.GetInstanceID();
+            int prod1ListIndex = findListByID(int.Parse((cityID.ToString() + "01")));
+            int prod2ListIndex = findListByID(int.Parse((cityID.ToString() + "02")));
+            int prod3ListIndex = findListByID(int.Parse((cityID.ToString() + "03")));
+
+            int good1Index = city.GetComponent<uiCityScript>().productionMaterial1;
+            int good2Index = city.GetComponent<uiCityScript>().productionMaterial2;
+            int good3Index = city.GetComponent<uiCityScript>().productionMaterial3;
+
+
+
+            if (prod1ListIndex == -1)
+            {
+                //need to check if its required
+                if (city.GetComponent<uiCityScript>().cityInventory[good1Index].quantity > 600)
+                {
+                    //need to find a doner city and assign a job
+                    GameObject donerCity = findDonerCity(good1Index);
+
+                    aiTradeJobs job = new aiTradeJobs();
+                    job.id = prod1ListIndex;
+                    job.aiDestCity = donerCity;
+                    job.aiSourceCity = city;
+                    job.assigned = false;
+                    job.tradeGoodIndex = good1Index;
+                    job.tradeQty = 200;
+
+                    globals.aiTradJobList.Add(job);
+
+                }
+            }
+            if (prod2ListIndex >= 0)
+            {
+                //need to check if its required
+                if (city.GetComponent<uiCityScript>().cityInventory[good2Index].quantity > 600)
+                {
+                    //need to find a doner city and assign a job
+                    GameObject donerCity = findDonerCity(good2Index);
+
+                    aiTradeJobs job = new aiTradeJobs();
+                    job.id = prod2ListIndex;
+                    job.aiDestCity = donerCity;
+                    job.aiSourceCity = city;
+                    job.assigned = false;
+                    job.tradeGoodIndex = good2Index;
+                    job.tradeQty = 200;
+
+                    globals.aiTradJobList.Add(job);
+
+                }
+                //need to check if its required
+            }
+            if (prod3ListIndex >= 0)
+            {
+                //need to check if its required
+                if (city.GetComponent<uiCityScript>().cityInventory[good3Index].quantity > 600)
+                {
+                    //need to find a doner city and assign a job
+                    GameObject donerCity = findDonerCity(good3Index);
+
+                    aiTradeJobs job = new aiTradeJobs();
+                    job.id = prod3ListIndex;
+                    job.aiDestCity = donerCity;
+                    job.aiSourceCity = city;
+                    job.assigned = false;
+                    job.tradeGoodIndex = good3Index;
+                    job.tradeQty = 200;
+
+                    globals.aiTradJobList.Add(job);
+
+                }
+            }
+        }
+
+    }
     void Start() {
         globals.cityEconomyInstance = this.gameObject;
     }

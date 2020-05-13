@@ -122,10 +122,10 @@ public void onPointerOver()
                     {
                         //click is not on UI.... lets decide what to do
                         //Tag is Player or tag is City
-                        Debug.Log(hit.transform.gameObject.name.ToString());
+                        //Debug.Log(hit.transform.gameObject.name.ToString());
                         if (hit.transform.gameObject.tag == "City")
                         {
-                            if (globals.selectedVessel != null)
+                            if (globals.selectedVessel != null && globals.selectedVessel.gameObject.transform.parent.name == "shipGroup")
                             {
                                 globals.selectedVessel.gameObject.GetComponent<NavMeshAgent>().SetDestination(hit.transform.position);
                                 //globals.selectedVessel.gameObject.GetComponent<NavMeshAgent>()..SetDestination(hit.point);
@@ -146,7 +146,22 @@ public void onPointerOver()
                             }
                             //If another vessel ... select that vessel as active
                         }
-                        else if (globals.selectedVessel != null)
+                        else if (hit.transform.gameObject.tag == "ai")
+                        {
+                            //if same vessel... do nothing for now but open properties
+                            if (hit.transform.gameObject.name == globals.selectedVessel.gameObject.name)
+                            {
+
+                            }
+                            else
+                            {
+                                hit.transform.gameObject.GetComponent<aiShipScript>().selectThisVessel();
+                                //globals.selectedVessel = hit.transform.gameObject;
+                                //Camera.main.gameObject.transform.position = new Vector3(globals.selectedVessel.transform.position.x, Camera.main.gameObject.transform.position.y, globals.selectedVessel.transform.position.z) ;
+                            }
+                            //If another vessel ... select that vessel as active
+                        }
+                        else if (globals.selectedVessel != null && globals.selectedVessel.gameObject.transform.parent.name == "shipGroup")
                         {
                             globals.selectedVessel.gameObject.GetComponent<NavMeshAgent>().SetDestination(hit.point);
                             //globals.selectedVessel.gameObject.GetComponent<NavMeshAgent>()..SetDestination(hit.point);

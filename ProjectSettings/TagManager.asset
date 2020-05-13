@@ -9,6 +9,7 @@ TagManager:
   - navMeshSurface
   - playerController
   - City
+  - ai
   layers:
   - Default
   - TransparentFX

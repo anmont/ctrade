@@ -16,7 +16,7 @@ void Start() {
     if (StaticClass.saveFileName == "newgame")
     {
         // Start a new city
-        Debug.Log("I am starting the new city Generation");
+        //Debug.Log("I am starting the new city Generation");
         newGame = true;
         GenerateHeights();
     }
@@ -102,7 +102,7 @@ public static void heightGenerator (Vector3 mapSeed)
     GameObject terrainObj = GameObject.Find("Terrain");
     Terrain terrain = terrainObj.GetComponent<Terrain>();
 
-    Debug.Log ("Start_Height_Gen_v2");
+    //Debug.Log ("Start_Height_Gen_v2");
     TerrainData terrainDataSet = terrain.terrainData;
     const int size = 513;
     terrainDataSet.heightmapResolution = size;
@@ -137,9 +137,9 @@ public static void heightGenerator (Vector3 mapSeed)
         seedy = mapSeed.z;
     }
 
-    Debug.Log("seedx = " + seed.ToString());
-    Debug.Log("seedy = " + seedx.ToString());
-    Debug.Log("seedz = " + seedy.ToString());
+    //Debug.Log("seedx = " + seed.ToString());
+    //Debug.Log("seedy = " + seedx.ToString());
+    //Debug.Log("seedz = " + seedy.ToString());
 
     globals.mapSeed = new Vector3(seed,seedx,seedy);
 
@@ -258,7 +258,7 @@ public static void heightGenerator (Vector3 mapSeed)
      //generateCities();
      
 
-     StartCoroutine(generateCities());
+     StartCoroutine(generateCitiesandVessels());
      Debug.Log("Fin");
      //terrain.GetComponent<Transform>().position = new Vector3(-500, -5.5f,-500);
      //terrain.GetComponent<Transform>().position = new Vector3(-500, -5f,-500);
@@ -269,7 +269,7 @@ public static void heightGenerator (Vector3 mapSeed)
  {
 
      heightGenerator(Vector3.zero);
-     StartCoroutine(generateCities());
+     StartCoroutine(generateCitiesandVessels());
      Debug.Log("Fin");
      //terrain.GetComponent<Transform>().position = new Vector3(-500, -5.5f,-500);
      //terrain.GetComponent<Transform>().position = new Vector3(-500, -5f,-500);
@@ -283,10 +283,11 @@ public static void heightGenerator (Vector3 mapSeed)
  }
 
 //public static void generateCities ()
-IEnumerator generateCities()
+IEnumerator generateCitiesandVessels()
 {
 
     int city = 0;
+    int vessels = 0;
     Vector3 landHitLoc = Vector3.zero;
     // drop a random raycast, if it hits land
     while (city < 10)
@@ -396,8 +397,17 @@ IEnumerator generateCities()
         //city ++;
         }
 
-        globals.createVessel(new Vector3(0,0,0),0);
+
+    // create the new starter ship
+    globals.createVessel(new Vector3(0,0,0),0);
     
+    // create the aiVessels
+    while (vessels < 4)
+    {
+        globals.createAiVessel(globals.cityList[vessels].gameObject.transform.position);
+        vessels ++;
+    }
+
     // iterate throught the list of city locations and make sure its not closer than xxx to any city
     // drop 4 raycasts at each cardinal direct and see if it hits water
     // if water is hit, drop several other lines at small intervals to determine the exact spot

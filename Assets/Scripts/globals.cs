@@ -16,9 +16,13 @@ public class globals : MonoBehaviour
     public static GameObject time;
     public static GameObject navMesh;
     public static GameObject shipGroup;
+    public static GameObject aiGroup;
     public static GameObject cityGroup;
+    public static List<aiTradeJobs> aiTradJobList = new List<aiTradeJobs>();
+    public static List<shipAssignments> aiShipAssignmentList = new List<shipAssignments>();
     public static List<GameObject> cityList = new List<GameObject>();
     public static List<GameObject> shipList = new List<GameObject>();
+    public static List<GameObject> aiShipList = new List<GameObject>();
     public static List<string> vesselList = new List<string>();
     public static int vesselUpkeepMultiplyer = 75;
     public static double vesselShipSavings = .9;
@@ -87,6 +91,58 @@ public class globals : MonoBehaviour
 
         return newCity;
     }
+
+    public static GameObject createAiVessel(Vector3 location, string shipName = "none")
+    {
+        string prefabName = "aiShip";
+
+
+        //deal with globals loading before scene
+        if (cityGroup == null)
+        {
+            cityGroup = GameObject.Find("cityGroup").gameObject;
+            shipGroup = GameObject.Find("shipGroup").gameObject;
+            aiGroup = GameObject.Find("aiGroup").gameObject;
+        }
+
+        //instantiate
+        GameObject newVessel = (GameObject)Instantiate(Resources.Load(prefabName), location, Quaternion.identity);
+        newVessel.transform.SetParent(aiGroup.transform, false);
+
+        //Name the vessel
+        if (shipName == "none")
+        {
+            int randMe = Random.Range(0,vesselList.Count);
+            newVessel.name = vesselList[randMe];
+            vesselList.RemoveAt(randMe);
+        }
+        else
+        {
+            newVessel.name = shipName;
+        }
+
+        //update vessel list
+        aiShipList.Add(newVessel);
+        //GameObject buttonShip = null;
+
+        //update GUI button for the vessel
+        //GameObject buttonShip = (GameObject)Instantiate(Resources.Load("shipButton"));
+        //buttonShip.GetComponent<btnShip>().thisVessel = newVessel;
+        //Button testB = Instantiate(Resources.Load("shipButton"));
+        //buttonShip.gameObject.transform.SetParent(GameObject.Find("guiVessels").transform);
+        //buttonShip.gameObject.transform.localScale = new Vector3(1,1,1);
+        //buttonShip.gameObject.transform.parent = ; 
+        newVessel.GetComponent<aiShipScript>().thisVessel = newVessel.gameObject;
+        //newVessel.GetComponent<aiShipScript>().shipButton = buttonShip.gameObject.GetComponent<Button>();
+        //buttonShip.gameObject.GetComponentInChildren<Text>().text = newVessel.name;
+        //selectedVessel = newVessel;
+        //newVessel.gameObject.GetComponent<uiShipScript>().selectThisVessel();
+        //Camera.main.gameObject.transform.position = new Vector3(newVessel.transform.position.x, Camera.main.gameObject.transform.position.y, newVessel.transform.position.z) ;
+        newVessel.transform.position = location;
+        
+        return newVessel;
+    }
+
     public static GameObject createVessel(Vector3 location, int size, string shipName = "none")
     {
         string prefabName = "";
@@ -108,6 +164,7 @@ public class globals : MonoBehaviour
         {
             cityGroup = GameObject.Find("cityGroup").gameObject;
             shipGroup = GameObject.Find("shipGroup").gameObject;
+            aiGroup = GameObject.Find("aiGroup").gameObject;
         }
 
         //innstantiate
@@ -148,6 +205,7 @@ public class globals : MonoBehaviour
         return newVessel;
     }
 
+
     public static void dailyTrigger()
     {
         //Debug.Log("Daily Trigger was called at " + timeBehavior.gameDate.ToString());
@@ -156,10 +214,10 @@ public class globals : MonoBehaviour
         //Calculate City Growth
 
 
-        Debug.Log("Terrain location = " + GameObject.Find("Terrain").transform.position.ToString());
-        Debug.Log("Water location = " + GameObject.Find("Water").transform.position.ToString());
-        Debug.Log("City 0 location = " + cityList[0].transform.position.ToString());
-        Debug.Log("Ship 0 location = " + shipList[0].transform.position.ToString());
+        //Debug.Log("Terrain location = " + GameObject.Find("Terrain").transform.position.ToString());
+        //Debug.Log("Water location = " + GameObject.Find("Water").transform.position.ToString());
+        //Debug.Log("City 0 location = " + cityList[0].transform.position.ToString());
+        //Debug.Log("Ship 0 location = " + shipList[0].transform.position.ToString());
 
 
         //Calculate City Production
@@ -171,6 +229,12 @@ public class globals : MonoBehaviour
         //calculate growth
         globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().calculateGrowth();
         //globals.openTradeWindow(globals.cityList[0].gameObject,globals.shipList[0].gameObject);
+        
+    }
+    public static void everyOtherDayTrigger()
+    {
+        //Debug.Log("Every Other Day Triggered");
+        globals.cityEconomyInstance.gameObject.GetComponent<cityEconomy>().determineCityJobs();
         
     }
     public static void weeklyTrigger()
@@ -220,9 +284,32 @@ public class globals : MonoBehaviour
         
         cityGroup = GameObject.Find("cityGroup").gameObject;
         shipGroup = GameObject.Find("shipGroup").gameObject;
+        aiGroup = GameObject.Find("aiGroup").gameObject;
 
     }
+}
 
+public class shipAssignments
+{
+    public float assignmentID;
+    public bool assigned;
+    public GameObject assignedVessel;
+    public int productID;
+    public GameObject sourceCity;
+    public GameObject destinationCity;
 
-    
+}
+
+public class aiTradeJobs
+{
+    public int id;
+    // city index - TradeGood Id 0101
+    // CC - TT
+    // city 1 tradegood 2 = 0102
+    public int tradeGoodIndex;
+    public int tradeQty;
+    public bool assigned;
+    public GameObject aiSourceCity;
+    public GameObject aiDestCity;
+
 }
