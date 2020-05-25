@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public Camera mainCamera;
     //public NavMeshAgent agent;
     public bool pointerOnUi = false;
+    public bool edgeScrolling = true;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +48,69 @@ public void onPointerOver()
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(Input.mousePosition.x.ToString() + "," + Input.mousePosition.y.ToString() + "," + Input.mousePosition.z.ToString());
+        //Screen.height
+        //Screen.width
+        if (edgeScrolling)
+        {
+            if(Input.mousePosition.x < 3)
+            {
+                if (myCamera.position.x > -490)
+                {
+                    //pan camera left while camera is not < 0
+                    dest = new Vector3(-.1f, 0.0f, 0f);
+                    float timeSpeed = timeBehavior.currentTimeScale;
+                    if (timeSpeed < 1) { timeSpeed = 1; }
+                    myCamera.position = myCamera.position += (dest * speed)/timeSpeed;
+                }
+            }
+            
+            if(Input.mousePosition.x > (Screen.width - 3))
+            {
+                if (myCamera.position.x < 490)
+                {
+                    //pan camera right while camera is not < 0
+                    dest = new Vector3(0.1f, 0.0f, 0f);
+                    float timeSpeed = timeBehavior.currentTimeScale;
+                    if (timeSpeed < 1) { timeSpeed = 1; }
+                    myCamera.position = myCamera.position += (dest * speed)/timeSpeed;
+                }
+            }
+
+            if(Input.mousePosition.y < 3)
+            {
+                if (myCamera.position.z > -490)
+                {
+                    //pan camera left while camera is not < 0
+                    dest = new Vector3(0f, 0.0f, -0.1f);
+                    float timeSpeed = timeBehavior.currentTimeScale;
+                    if (timeSpeed < 1) { timeSpeed = 1; }
+                    myCamera.position = myCamera.position += (dest * speed)/timeSpeed;
+                }
+            }
+            
+            if(Input.mousePosition.y > (Screen.height - 3))
+            {
+                //pan camera right while camera is not < 0
+                if (myCamera.position.z < 490 )
+                {
+                    dest = new Vector3(0f, 0.0f, 0.1f);
+                    float timeSpeed = timeBehavior.currentTimeScale;
+                    if (timeSpeed < 1) { timeSpeed = 1; }
+                    myCamera.position = myCamera.position += (dest * speed)/timeSpeed;
+                }
+            }
+        }
+
+
+        if (Input.GetButton("Vertical") || Input.GetButton("Horizontal") )
+        {
+            dest = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+            float timeSpeed = timeBehavior.currentTimeScale;
+            if (timeSpeed < 1) { timeSpeed = 1; }
+            myCamera.position = myCamera.position += (dest * speed)/timeSpeed;
+            
+        }
         if (Input.GetKeyUp(KeyCode.F5))
         {
             string datestring = timeBehavior.gameDate.Year + "_" + timeBehavior.gameDate.Month + "_" + timeBehavior.gameDate.Day;
@@ -59,12 +123,7 @@ public void onPointerOver()
         }
         if (!escMenuHandler.escapeMenuVisible)
         {
-            if (Input.GetButton("Vertical") || Input.GetButton("Horizontal") )
-            {
-                dest = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-                myCamera.position = myCamera.position += (dest * speed);
-                
-            }
+
             
             if (!pointerOnUi)
             {
@@ -136,7 +195,8 @@ public void onPointerOver()
                             //if same vessel... do nothing for now but open properties
                             if (hit.transform.gameObject.name == globals.selectedVessel.gameObject.name)
                             {
-
+                                globals.openShipDetails(hit.transform.gameObject);
+                                //Debug.Log("I shoul have opened the ship panel");
                             }
                             else
                             {
@@ -151,7 +211,8 @@ public void onPointerOver()
                             //if same vessel... do nothing for now but open properties
                             if (hit.transform.gameObject.name == globals.selectedVessel.gameObject.name)
                             {
-
+                                globals.openShipDetails(hit.transform.gameObject);
+                                //Debug.Log("I shoul have opened the ship panel");
                             }
                             else
                             {

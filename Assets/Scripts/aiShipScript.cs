@@ -9,7 +9,7 @@ public class aiShipScript : MonoBehaviour
     
     //public GameObject vesselInstance;
     public string location = "At Sea";
-    public int jobNumber = 0;
+    public string jobNumber = "0";
     public int jobState = 0;
     //0 == not assigned
     //1 == assigned and on route
@@ -64,7 +64,7 @@ public class aiShipScript : MonoBehaviour
         
     }
 
-    private aiTradeJobs getJobById(int id)
+    private aiTradeJobs getJobById(string id)
     {
         aiTradeJobs ret = globals.aiTradJobList.Find(item => item.id == id);
 
@@ -124,6 +124,7 @@ public class aiShipScript : MonoBehaviour
                 //head to destination 
                 NavMeshAgent agent = thisVessel.GetComponent<NavMeshAgent>();
                 agent.SetDestination(thisJob.aiDestCity.transform.position);
+                jobState = 3;
             }
             if (jobState == 3)
             {

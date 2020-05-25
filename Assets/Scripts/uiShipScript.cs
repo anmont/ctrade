@@ -10,6 +10,8 @@ public class uiShipScript : MonoBehaviour
     public string location = "At Sea";
     public int vesselStorageSize;
     public int vesselClassification;
+    public Transform myCamera;
+    public Camera mainCamera;
     public Button shipButton;
     public GameObject cityAtAnchor;
 
@@ -22,6 +24,7 @@ public class uiShipScript : MonoBehaviour
         //Debug.Log("what is this");
         //vesselInstance = this.gameObject.paren;
         //shipButton = this.gameObject.GetComponent<Button>();
+        
         shipButton.onClick.AddListener(selectThisVessel);
 
         if (shipInventory.Count > 0)
@@ -75,6 +78,12 @@ public class uiShipScript : MonoBehaviour
 
     public void selectThisVessel()
     {
+        if (mainCamera == null)
+        {
+            myCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
+            mainCamera = myCamera.GetComponent<Camera>();
+        }
+
         if (globals.selectedVessel != thisVessel)
         {
             if (globals.selectedVessel != null)
@@ -95,8 +104,9 @@ public class uiShipScript : MonoBehaviour
                 //globals.selectedVessel.GetComponentInChildren<Projector>().enabled = true;
             }
 
-            Camera.main.gameObject.transform.position = new Vector3(thisVessel.transform.position.x, Camera.main.gameObject.transform.position.y, thisVessel.transform.position.z) ;
+            
         }
+        mainCamera.transform.position = new Vector3(thisVessel.transform.position.x, mainCamera.transform.position.y, thisVessel.transform.position.z) ;
 
     }
 }

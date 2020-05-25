@@ -20,6 +20,13 @@ void Start() {
         newGame = true;
         GenerateHeights();
     }
+    else if (StaticClass.saveFileName == null)
+    {
+        //This path is for scene debugging only it shou8ld never4 be run in prod
+        newGame = true;
+        GenerateHeights();
+
+    }
     else
     {
         //Load Saved Game
@@ -180,7 +187,7 @@ public static void heightGenerator (Vector3 mapSeed)
     //Terrain obj = GameObject.Find ("TerrainA").GetComponent<Terrain>();
     //heightsOrig = obj.terrainData.GetHeights(0,0,obj.terrainData.heightmapWidth,obj.terrainData.heightmapHeight);
     //obj.terrainData.SetHeights(0,0, heights);
-    NavMeshSurface mesh = globals.navMesh.gameObject.GetComponent<NavMeshSurface>();
+    NavMeshSurface mesh = globals.navMesh.GetComponent<NavMeshSurface>();
     //mesh.BuildNavMesh.buildHeightMesh();
 
     mesh.BuildNavMesh();
@@ -246,7 +253,7 @@ public static void heightGenerator (Vector3 mapSeed)
      //Terrain obj = GameObject.Find ("TerrainA").GetComponent<Terrain>();
      //heightsOrig = obj.terrainData.GetHeights(0,0,obj.terrainData.heightmapWidth,obj.terrainData.heightmapHeight);
      //obj.terrainData.SetHeights(0,0, heights);
-     NavMeshSurface mesh = globals.navMesh.gameObject.GetComponent<NavMeshSurface>();
+     NavMeshSurface mesh = globals.navMesh.GetComponent<NavMeshSurface>();
      //mesh.BuildNavMesh.buildHeightMesh();
 
      mesh.BuildNavMesh();
@@ -399,7 +406,7 @@ IEnumerator generateCitiesandVessels()
 
 
     // create the new starter ship
-    globals.createVessel(new Vector3(0,0,0),0);
+    globals.createVessel(globals.cityList[0].transform.position,0);
     
     // create the aiVessels
     while (vessels < 4)

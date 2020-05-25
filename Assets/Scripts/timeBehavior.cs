@@ -5,14 +5,14 @@ using System;
 
 public class timeBehavior : MonoBehaviour
 {
-    public float currentTimeScale;
+    public static float currentTimeScale;
     public static DateTime startDate = new DateTime(1375,1,1);
     public static DateTime gameDate =new DateTime(1375,1,1); 
     public static string gameDateString;
     public static float cumulativeTime; //TODO needs serialized in game saves!!!!
-    public float gameDays;
-    public int temp = 0;
-    public int lastTemp = 0;
+    public static float gameDays;
+    public static int temp = 0;
+    public static int lastTemp = 0;
     public static float lastTS = 1;
     // Start is called before the first frame update
 
@@ -22,13 +22,25 @@ public class timeBehavior : MonoBehaviour
     public int lastDay = 1;
     public bool everyOtherDay = false;
 
-    public void changeTimeScale(float value)
+    public static void changeTimeScale(float value)
     {
         Time.timeScale = value;
         currentTimeScale = value;
 
     }
-    public void addTime(float value)
+    public void changedTimeScale(float value)
+    {
+        //Debug.Log("Original Value is " + value.ToString());
+        //this is for the gui only call that cannot read the static method
+        Time.timeScale = value;
+        currentTimeScale = value;
+
+        //Debug.Log("Time scale is now " + Time.timeScale.ToString());
+        //Debug.Log("CurentTime scale is now " + currentTimeScale.ToString());
+
+
+    }
+    public static void addTime(float value)
     {
         cumulativeTime  += (value * currentTimeScale) ;
         temp = Mathf.RoundToInt(cumulativeTime);
@@ -39,7 +51,7 @@ public class timeBehavior : MonoBehaviour
         setGameDays();
     }
 
-    public void setGameDays ()
+    public static void setGameDays ()
     {
         gameDays = Mathf.RoundToInt(cumulativeTime / 60);
         gameDate = startDate.AddDays(gameDays);

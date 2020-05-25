@@ -36,6 +36,19 @@ public class globals : MonoBehaviour
         }
     }
 
+    public static void openShipDetails(GameObject ship)
+    {
+        GameObject shipDetailI = (GameObject)Instantiate(Resources.Load("shipDetails"));
+        shipDetailI.transform.SetParent(GameObject.Find("mainCanvas").transform);
+        shipDetailI.GetComponent<RectTransform>().localPosition = new Vector3(0f,0f,0f);
+        shipDetailI.GetComponent<RectTransform>().localScale = new Vector3(1,1,1);
+        shipDetailI.GetComponentInChildren<ScrollRect>().scrollSensitivity = 50f;
+        //shipDetailI.GetComponent<cityTradePanel>().cityToTrade = city;
+        shipDetailI.GetComponent<shipDetailsPanel>().vesselToTrade = ship;
+        //timeBehavior.lastTS = timeBehavior.currentTimeScale; 
+        //timeBehavior.changeTimeScale(0);
+    }
+
     public static void openTradeWindow(GameObject city, GameObject ship)
     {
         GameObject shipTradePanelI = (GameObject)Instantiate(Resources.Load("shipTradePanel"));
@@ -45,8 +58,8 @@ public class globals : MonoBehaviour
         shipTradePanelI.GetComponentInChildren<ScrollRect>().scrollSensitivity = 50f;
         shipTradePanelI.GetComponent<cityTradePanel>().cityToTrade = city;
         shipTradePanelI.GetComponent<cityTradePanel>().vesselToTrade = ship;
-
-
+        timeBehavior.lastTS = timeBehavior.currentTimeScale; 
+        timeBehavior.changeTimeScale(0);
     }
     public static GameObject createCity(Vector3 location, string load = "n")
     {
@@ -302,7 +315,7 @@ public class shipAssignments
 
 public class aiTradeJobs
 {
-    public int id;
+    public string id;
     // city index - TradeGood Id 0101
     // CC - TT
     // city 1 tradegood 2 = 0102

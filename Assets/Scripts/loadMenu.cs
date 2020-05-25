@@ -34,11 +34,13 @@ public class loadMenu : MonoBehaviour
         DirectoryInfo dir = new DirectoryInfo(Application.persistentDataPath.ToString() + "/saves");
         StaticClass.savePath = Application.persistentDataPath.ToString() + "/saves/";
         //Debug.Log(Application.persistentDataPath.ToString() + "/saves");
+        
 
         FileInfo[] info = dir.GetFiles("*.trdr");
         //Debug.Log(info.Length.ToString() + " total files in list");
         foreach (FileInfo save in info)
         {
+            Debug.Log(save.Name.ToString());
             GameObject savedGame = (GameObject)Instantiate(Resources.Load("loadUIGameSaveBtn"));
             savedGame.transform.SetParent(listView.transform, false);
             savedGame.GetComponentInChildren<Text>().text = save.Name;

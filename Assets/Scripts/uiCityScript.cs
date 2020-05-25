@@ -85,6 +85,10 @@ public class uiCityScript : MonoBehaviour
 
     public void navigateTo()
     {
+        if (Input.GetMouseButtonDown(1))
+        {
+            Debug.Log("Right Mousse button city click!!!!!!");
+        }
         if (globals.selectedVessel != null)
         {
             NavMeshAgent agent = globals.selectedVessel.GetComponent<NavMeshAgent>();

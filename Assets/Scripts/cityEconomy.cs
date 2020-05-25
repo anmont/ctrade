@@ -219,7 +219,7 @@ public class cityEconomy : MonoBehaviour
 
     }
 
-    private int findListByID(int id)
+    private int findListByID(string id)
     {
         int retval = -1;
         retval = globals.aiTradJobList.FindIndex(item => item.id == id);
@@ -246,31 +246,32 @@ public class cityEconomy : MonoBehaviour
     }
     public void determineCityJobs()
     {
-        foreach (GameObject city in globals.cityList)
+        foreach (GameObject thisCity in globals.cityList)
         {
-            int cityID = city.GetInstanceID();
-            int prod1ListIndex = findListByID(int.Parse((cityID.ToString() + "01")));
-            int prod2ListIndex = findListByID(int.Parse((cityID.ToString() + "02")));
-            int prod3ListIndex = findListByID(int.Parse((cityID.ToString() + "03")));
+            //int cityID = city..GetInstanceID();
+            int cityID = globals.cityList.FindIndex(city => city.name == thisCity.name);
+            int prod1ListIndex = findListByID(cityID + "01");
+            int prod2ListIndex = findListByID(cityID + "02");
+            int prod3ListIndex = findListByID(cityID + "03");
 
-            int good1Index = city.GetComponent<uiCityScript>().productionMaterial1;
-            int good2Index = city.GetComponent<uiCityScript>().productionMaterial2;
-            int good3Index = city.GetComponent<uiCityScript>().productionMaterial3;
+            int good1Index = thisCity.GetComponent<uiCityScript>().productionMaterial1;
+            int good2Index = thisCity.GetComponent<uiCityScript>().productionMaterial2;
+            int good3Index = thisCity.GetComponent<uiCityScript>().productionMaterial3;
 
 
 
             if (prod1ListIndex == -1)
             {
                 //need to check if its required
-                if (city.GetComponent<uiCityScript>().cityInventory[good1Index].quantity > 600)
+                if (thisCity.GetComponent<uiCityScript>().cityInventory[good1Index].quantity > 600)
                 {
                     //need to find a doner city and assign a job
                     GameObject donerCity = findDonerCity(good1Index);
 
                     aiTradeJobs job = new aiTradeJobs();
-                    job.id = prod1ListIndex;
+                    job.id = cityID + "01";
                     job.aiDestCity = donerCity;
-                    job.aiSourceCity = city;
+                    job.aiSourceCity = thisCity;
                     job.assigned = false;
                     job.tradeGoodIndex = good1Index;
                     job.tradeQty = 200;
@@ -282,15 +283,15 @@ public class cityEconomy : MonoBehaviour
             if (prod2ListIndex >= 0)
             {
                 //need to check if its required
-                if (city.GetComponent<uiCityScript>().cityInventory[good2Index].quantity > 600)
+                if (thisCity.GetComponent<uiCityScript>().cityInventory[good2Index].quantity > 600)
                 {
                     //need to find a doner city and assign a job
                     GameObject donerCity = findDonerCity(good2Index);
 
                     aiTradeJobs job = new aiTradeJobs();
-                    job.id = prod2ListIndex;
+                    job.id = cityID + "02";
                     job.aiDestCity = donerCity;
-                    job.aiSourceCity = city;
+                    job.aiSourceCity = thisCity;
                     job.assigned = false;
                     job.tradeGoodIndex = good2Index;
                     job.tradeQty = 200;
@@ -303,15 +304,15 @@ public class cityEconomy : MonoBehaviour
             if (prod3ListIndex >= 0)
             {
                 //need to check if its required
-                if (city.GetComponent<uiCityScript>().cityInventory[good3Index].quantity > 600)
+                if (thisCity.GetComponent<uiCityScript>().cityInventory[good3Index].quantity > 600)
                 {
                     //need to find a doner city and assign a job
                     GameObject donerCity = findDonerCity(good3Index);
 
                     aiTradeJobs job = new aiTradeJobs();
-                    job.id = prod3ListIndex;
+                    job.id = cityID + "03";
                     job.aiDestCity = donerCity;
-                    job.aiSourceCity = city;
+                    job.aiSourceCity = thisCity;
                     job.assigned = false;
                     job.tradeGoodIndex = good3Index;
                     job.tradeQty = 200;
