@@ -14,16 +14,16 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2900
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - Vector1_B0680095: 4.2
+    - Vector1_B0680095: 1.4
     - Vector1_C2E07D07: 1.13
-    - Vector1_CE87D395: 200
+    - Vector1_CE87D395: -175.4
     m_Colors:
-    - Color_37DFC670: {r: 0.10466, g: 0, b: 1, a: 0}
-    - Color_B9722127: {r: 0.054378804, g: 0.8867924, b: 0.7781237, a: 1}
+    - Color_37DFC670: {r: 0.0084104715, g: 0.254717, b: 0.13427326, a: 1}
+    - Color_B9722127: {r: 0.1980242, g: 0.3764706, b: 0.35686275, a: 1}
