@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class globals : MonoBehaviour
 {
@@ -47,6 +48,39 @@ public class globals : MonoBehaviour
         shipDetailI.GetComponent<shipDetailsPanel>().vesselToTrade = ship;
         //timeBehavior.lastTS = timeBehavior.currentTimeScale; 
         //timeBehavior.changeTimeScale(0);
+    }
+
+    public static float navMeshDistance(Vector3 PointA, Vector3 PointB)
+    {
+        float retDistance = 0f;
+        if (PointA == null || PointB == null)
+        {
+            return retDistance;
+        }
+
+        NavMesh.SamplePosition(PointA, out NavMeshHit hitA, 10f, NavMesh.AllAreas);
+        NavMesh.SamplePosition(PointB, out NavMeshHit hitB, 10f, NavMesh.AllAreas);
+ 
+        NavMeshPath path = new NavMeshPath();
+        if (NavMesh.CalculatePath(hitA.position, hitB.position, NavMesh.AllAreas, path))
+        {
+            //Debug.DrawLine(hitA.position + Vector3.up, hitB.position + Vector3.up, Color.red, 10f, true); // a red line float in air
+            int cnt = path.corners.Length;
+           
+            float distance = 0f;
+            for (int i =0; i<cnt - 1; i++)
+            {
+                distance += (path.corners[i] - path.corners[i + 1]).magnitude;
+                //Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.green, 10f, true);
+            }
+            //Debug.Log($"Total distance {distance:F2}");
+            retDistance = distance;
+        }
+        else
+        {
+            //Debug.LogError("Mission Fail");
+        }
+        return retDistance;
     }
 
     public static void openTradeWindow(GameObject city, GameObject ship)

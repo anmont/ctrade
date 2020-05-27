@@ -69,7 +69,9 @@ public class uiCityScript : MonoBehaviour
             }
             else
             {
-                aAA.text = cityName + " (" + Mathf.RoundToInt(Vector3.Distance(thisCity.transform.position,globals.selectedVessel.transform.position)) + "km)";
+                float distanceTo = globals.navMeshDistance(thisCity.transform.position,globals.selectedVessel.transform.position);
+                //original aAA.text = cityName + " (" + Mathf.RoundToInt(Vector3.Distance(thisCity.transform.position,globals.selectedVessel.transform.position)) + "km)";
+                aAA.text = cityName + " (" + Mathf.RoundToInt(distanceTo).ToString() + "km)";
             }
         }
 

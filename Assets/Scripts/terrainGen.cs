@@ -247,7 +247,7 @@ public static void heightGenerator (Vector3 mapSeed)
 
      terrain.GetComponent<Transform>().position = new Vector3(-500, -5,-500);
      
-     terrain.ApplyDelayedHeightmapModification();
+     //terrain.ApplyDelayedHeightmapModification();
      terrain.Flush();
      //heightsFin = terrain.terrainData.GetHeights(0,0,terrain.terrainData.heightmapWidth, terrain.terrainData.heightmapHeight);
      //Terrain obj = GameObject.Find ("TerrainA").GetComponent<Terrain>();
@@ -306,7 +306,7 @@ IEnumerator generateCitiesandVessels()
             //Debug.Log("found water at " + hit.point.ToString());
             //hit.point;
             bool landHit = false;
-            RaycastHit water;
+            //RaycastHit water;
             bool done = false;
             
             while (!done && !landHit)
@@ -409,7 +409,7 @@ IEnumerator generateCitiesandVessels()
     globals.createVessel(globals.cityList[0].transform.position,0);
     
     // create the aiVessels
-    while (vessels < 4)
+    while (vessels < 12)
     {
         globals.createAiVessel(globals.cityList[vessels].gameObject.transform.position);
         vessels ++;
