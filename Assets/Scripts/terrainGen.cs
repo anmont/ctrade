@@ -409,7 +409,7 @@ IEnumerator generateCitiesandVessels()
     globals.createVessel(globals.cityList[0].transform.position,0);
     
     // create the aiVessels
-    while (vessels < 12)
+    while (vessels < globals.aiVessels)
     {
         globals.createAiVessel(globals.cityList[vessels].gameObject.transform.position);
         vessels ++;

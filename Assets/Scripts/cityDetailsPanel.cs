@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class shipDetailsPanel : MonoBehaviour
+
+public class cityDetailsPanel : MonoBehaviour
 {
     public Vector2 lastMousePosition;
     //public GameObject cityToTrade;
-    public GameObject vesselToTrade;
+    public GameObject cityDetail;
     public GameObject myInstance;
     public Transform contentGUI;
     public bool isAi;
@@ -22,7 +23,7 @@ public class shipDetailsPanel : MonoBehaviour
     {
         myInstance = this.gameObject;
 
-        if (vesselToTrade.tag == "ai")
+        if (cityDetail.tag == "ai")
         {
             isAi = true;
         }
@@ -64,42 +65,36 @@ public class shipDetailsPanel : MonoBehaviour
         //trigger.triggers.Add(entry);
 
         Text[] uiTexts = this.GetComponentsInChildren<Text>();
-        uiTexts[4].transform.parent.GetComponent<InputField>().text = vesselToTrade.name;
+
+        uiTexts[4].transform.parent.GetComponent<InputField>().text = cityDetail.name;
+        uiTexts[6].text = cityDetail.GetComponent<uiCityScript>().cityPopulation.ToString();
+        uiTexts[8].text = cityDetail.GetComponent<uiCityScript>().cityProsperity.ToString();
+        //uiTexts[10].text = cityDetail.GetComponent<uiCityScript>().cityGrowth.ToString();
+        uiTexts[10].text = cityDetail.GetComponent<uiCityScript>().cityGrowth.ToString();
+        //uiTexts[12].text = cityDetail.GetComponent<uiCityScript>().cityWealth.ToString();
+        uiTexts[12].text = cityDetail.GetComponent<uiCityScript>().cityWealth.ToString();
+        uiTexts[16].text = cityDetail.GetComponent<uiCityScript>().cityInventory[cityDetail.GetComponent<uiCityScript>().productionMaterial1].productName;
+        uiTexts[17].text = cityDetail.GetComponent<uiCityScript>().cityInventory[cityDetail.GetComponent<uiCityScript>().productionMaterial2].productName;
+        uiTexts[18].text = cityDetail.GetComponent<uiCityScript>().cityInventory[cityDetail.GetComponent<uiCityScript>().productionMaterial3].productName;
         //uiTexts[3].text = cityToTrade.name;
         //uiTexts[6].text = vesselToTrade.name;
         //Transform temp = myInstance.transform.Find("shipTradeCityName");
         //myInstance.transform.Find("shipTradeCityName").GetComponent<Text>().text = cityToTrade.name;
         //myInstance.transform.Find("shipTradeShipName").GetComponent<Text>().text = vesselToTrade.name;
 
-        if (isAi)
-        {
-            uiTexts[6].text = vesselToTrade.GetComponent<aiShipScript>().vesselStorageSize.ToString();
-            float totalInv = 0;
-            foreach (tradeGoods good in vesselToTrade.GetComponent<aiShipScript>().shipInventory)
-            {
-                totalInv += (float)good.quantity;
-            }
 
-            uiTexts[8].text = totalInv.ToString();
-            uiTexts[10].text = (vesselToTrade.GetComponent<aiShipScript>().vesselStorageSize - totalInv).ToString();
-            uiTexts[12].text = vesselToTrade.GetComponent<aiShipScript>().location;
-            uiTexts[14].text = "Not Assigned"; //TODO
+            //uiTexts[6].text = cityDetail.GetComponent<uiCShipScript>().vesselStorageSize.ToString();
+            //float totalInv = 0;
+            //foreach (tradeGoods good in cityDetail.GetComponent<uiCityScript>().cityInventory)
+            //{
+            //    totalInv += (float)good.quantity;
+            //}
 
-        }
-        else
-        {
-            uiTexts[6].text = vesselToTrade.GetComponent<uiShipScript>().vesselStorageSize.ToString();
-            float totalInv = 0;
-            foreach (tradeGoods good in vesselToTrade.GetComponent<uiShipScript>().shipInventory)
-            {
-                totalInv += (float)good.quantity;
-            }
+            //uiTexts[8].text = totalInv.ToString();
+            //uiTexts[10].text = (vesselToTrade.GetComponent<uiShipScript>().vesselStorageSize - totalInv).ToString();
+            //uiTexts[12].text = vesselToTrade.GetComponent<uiShipScript>().location;
+            //uiTexts[14].text = "Not Assigned"; //TODO
 
-            uiTexts[8].text = totalInv.ToString();
-            uiTexts[10].text = (vesselToTrade.GetComponent<uiShipScript>().vesselStorageSize - totalInv).ToString();
-            uiTexts[12].text = vesselToTrade.GetComponent<uiShipScript>().location;
-            uiTexts[14].text = "Not Assigned"; //TODO
-        }
 
 
 
@@ -193,7 +188,7 @@ public class shipDetailsPanel : MonoBehaviour
         {
             lastUpdateDay = timeBehavior.gameDate.Day;
         }
-        if (vesselToTrade == null)
+        if (cityDetail == null)
         {
             Destroy(myInstance);
         }
@@ -205,9 +200,8 @@ public class shipDetailsPanel : MonoBehaviour
             Transform goods = contentGUI.GetChild(goodsIndex).transform;
             Text[] textlist = goods.gameObject.GetComponentsInChildren<Text>();
 
-            if (isAi)
-            {
-                textlist[0].text = vesselToTrade.GetComponent<aiShipScript>().shipInventory[goodsIndex].quantity.ToString(); //total amount of goods to trade
+
+                textlist[0].text = Mathf.Round((float)cityDetail.GetComponent<uiCityScript>().cityInventory[goodsIndex].quantity).ToString(); //total amount of goods to trade
                 if (textlist[0].text == "0")
                 {
                     goods.gameObject.SetActive(false);
@@ -216,21 +210,6 @@ public class shipDetailsPanel : MonoBehaviour
                 {
                     goods.gameObject.SetActive(true);
                 }
-            }
-            else
-            {
-
-                textlist[0].text = vesselToTrade.GetComponent<uiShipScript>().shipInventory[goodsIndex].quantity.ToString(); //total amount of goods to trade
-                if (textlist[0].text == "0")
-                {
-                    goods.gameObject.SetActive(false);
-                }
-                else
-                {
-                    goods.gameObject.SetActive(true);
-                }
-            }
-
 
             goodsIndex++;
         }
@@ -240,4 +219,5 @@ public class shipDetailsPanel : MonoBehaviour
         
     }
 }
+
 

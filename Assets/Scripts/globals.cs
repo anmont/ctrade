@@ -19,6 +19,7 @@ public class globals : MonoBehaviour
     public static GameObject shipGroup;
     public static GameObject aiGroup;
     public static GameObject cityGroup;
+    public static int aiVessels = 24;
     public static List<aiTradeJobs> aiTradJobList = new List<aiTradeJobs>();
     public static List<shipAssignments> aiShipAssignmentList = new List<shipAssignments>();
     public static List<GameObject> cityList = new List<GameObject>();
@@ -36,6 +37,22 @@ public class globals : MonoBehaviour
             
         }
     }
+
+
+    public static void openCityProperties(GameObject city)
+    {
+        GameObject cityPropI = (GameObject)Instantiate(Resources.Load("cityDetails"));
+        cityPropI.transform.SetParent(GameObject.Find("mainCanvas").transform);
+        cityPropI.GetComponent<RectTransform>().localPosition = new Vector3(0f,0f,0f);
+        cityPropI.GetComponent<RectTransform>().localScale = new Vector3(1,1,1);
+        cityPropI.GetComponentInChildren<ScrollRect>().scrollSensitivity = 50f;
+        //shipDetailI.GetComponent<cityTradePanel>().cityToTrade = city;
+        cityPropI.GetComponent<cityDetailsPanel>().cityDetail = city;
+        //timeBehavior.lastTS = timeBehavior.currentTimeScale; 
+        //timeBehavior.changeTimeScale(0);
+    }
+
+
 
     public static void openShipDetails(GameObject ship)
     {

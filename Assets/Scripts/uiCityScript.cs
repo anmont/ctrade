@@ -107,6 +107,7 @@ public class uiCityScript : MonoBehaviour
             other.gameObject.GetComponent<uiShipScript>().cityAtAnchor = thisCity;
             //other.transform.gameObject.GetComponentInChildren<Projector>().enabled = false;
             other.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = false;
+            other.transform.Find("Canvas").gameObject.GetComponent<Canvas>().enabled = false;
 
             foreach (MeshRenderer i in other.transform.gameObject.GetComponentsInChildren<MeshRenderer>())
             {
@@ -122,6 +123,7 @@ public class uiCityScript : MonoBehaviour
             other.gameObject.GetComponent<aiShipScript>().cityAtAnchor = thisCity;
             //other.transform.gameObject.GetComponentInChildren<Projector>().enabled = false;
             other.transform.Find("selector").gameObject.GetComponent<MeshRenderer>().enabled = false;
+            other.transform.Find("Canvas").gameObject.GetComponent<Canvas>().enabled = false;
 
             foreach (MeshRenderer i in other.transform.gameObject.GetComponentsInChildren<MeshRenderer>())
             {
@@ -143,6 +145,7 @@ public class uiCityScript : MonoBehaviour
             Debug.Log("Ship " + other.transform.gameObject.name + "has exited the city " + thisCity.name);
             other.gameObject.GetComponent<uiShipScript>().cityAtAnchor = null;
 
+            other.transform.Find("Canvas").gameObject.GetComponent<Canvas>().enabled = true;
             foreach (MeshRenderer i in other.transform.gameObject.GetComponentsInChildren<MeshRenderer>())
             {
                 i.enabled = true;//.enabled = true;
@@ -159,6 +162,7 @@ public class uiCityScript : MonoBehaviour
             Debug.Log("Ship " + other.transform.gameObject.name + "has exited the city " + thisCity.name);
             other.gameObject.GetComponent<aiShipScript>().cityAtAnchor = null;
 
+            other.transform.Find("Canvas").gameObject.GetComponent<Canvas>().enabled = true;
             foreach (MeshRenderer i in other.transform.gameObject.GetComponentsInChildren<MeshRenderer>())
             {
                 i.enabled = true;//.enabled = true;

@@ -167,6 +167,32 @@ public void onPointerOver()
                 }
             }
 
+            if (Input.GetMouseButtonDown(1))
+            {
+                //Debug.Log("Over Game Object : " + EventSystem.current.IsPointerOverGameObject());
+                Ray castme = mainCamera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(castme, out hit))
+                {
+                    if (!pointerOnUi)
+                    {
+                        if (hit.transform.gameObject.tag == "City")
+                        {
+                            // if right click on city open city properties
+                            globals.openCityProperties(hit.transform.gameObject);
+                        }
+                        else if (hit.transform.gameObject.tag == "Player")
+                        {
+                            //if right click on ship open ship properties
+                            globals.openShipDetails(hit.transform.gameObject);
+                        }
+                    }
+
+                }
+
+            }
+
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -195,8 +221,9 @@ public void onPointerOver()
                             //if same vessel... do nothing for now but open properties
                             if (hit.transform.gameObject.name == globals.selectedVessel.gameObject.name)
                             {
-                                globals.openShipDetails(hit.transform.gameObject);
-                                //Debug.Log("I shoul have opened the ship panel");
+                                //This probably wont do anything... left clicking is for actions
+                                //right clicking is for props >> so refer to the on buttondown 1 for the properties
+                                //globals.openShipDetails(hit.transform.gameObject);
                             }
                             else
                             {
