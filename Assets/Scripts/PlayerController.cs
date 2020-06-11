@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float cameraCeiling = 250f;
     public float cameraFloor = 10f;
     public Camera mainCamera;
+    public GameObject tradeRoutePanelObh;
     //public NavMeshAgent agent;
     public bool pointerOnUi = false;
     public bool edgeScrolling = true;
@@ -137,6 +138,22 @@ public void onPointerOver()
                         myCamera.position = desiredHeight;
                     }
                     //meshCellDensity(desiredHeight.y);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                //GameObject panel = GameObject.Find("tradeRoutePanel");
+                //GameObject panel = transform.Find("tradeRoutePanel").parent.gameObject;
+                //transform.Find()
+                
+                if (tradeRoutePanelObh.activeInHierarchy)
+                {
+                    tradeRoutePanelObh.SetActive(false);
+                }
+                else
+                {
+                    tradeRoutePanelObh.SetActive(true);
                 }
             }
 

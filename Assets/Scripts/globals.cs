@@ -25,6 +25,7 @@ public class globals : MonoBehaviour
     public static List<GameObject> cityList = new List<GameObject>();
     public static List<GameObject> shipList = new List<GameObject>();
     public static List<GameObject> aiShipList = new List<GameObject>();
+    public static List<playerTradeRoutes> playerTradeRouteList = new List<playerTradeRoutes>();
     public static List<string> vesselList = new List<string>();
     public static int vesselUpkeepMultiplyer = 75;
     public static double vesselShipSavings = .9;
@@ -345,6 +346,12 @@ public class globals : MonoBehaviour
         vesselList.Add("Sailors Wind");
         vesselList.Add("Banff");
         vesselList.Add("Dutiful");
+        playerTradeRouteList.Add(new playerTradeRoutes(){ tradeRouteId = 0, tradeRouteName = "test0"});
+        playerTradeRouteList.Add(new playerTradeRoutes(){ tradeRouteId = 1, tradeRouteName = "test1"});
+        playerTradeRouteList.Add(new playerTradeRoutes(){ tradeRouteId = 2, tradeRouteName = "test2"});
+        playerTradeRouteList.Add(new playerTradeRoutes(){ tradeRouteId = 3, tradeRouteName = "test3"});
+
+        
         
         cityGroup = GameObject.Find("cityGroup").gameObject;
         shipGroup = GameObject.Find("shipGroup").gameObject;
@@ -375,5 +382,26 @@ public class aiTradeJobs
     public bool assigned;
     public GameObject aiSourceCity;
     public GameObject aiDestCity;
+
+}
+
+public class playerTradeRoutes
+{
+    
+    public float tradeRouteId;
+    public string tradeRouteName;
+    public List<routeTradeJobs> jobList = new List<routeTradeJobs>();
+
+}
+
+public class routeTradeJobs
+{
+    public string jobID;
+    public GameObject location;
+    public int tradeAction; // 0 load | 1 buy | 2 sell | 3 store
+    public int tradeItemIndex;
+    public int tradeQty;
+    public int buySellValue;
+    public bool waitForCompletion;
 
 }
