@@ -4,17 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class tradeRoutePanels : MonoBehaviour
+
+public class tradeJobEntryPanels : MonoBehaviour
 {
     public Vector2 lastMousePosition;
+    public float currentRouteID;
+    public int currentJobIndex = -1;
     //public GameObject cityToTrade;
     public GameObject contentGO;
     public GameObject myInstance;
-    public GameObject myDelete;
-    public GameObject myEdit;
-    public Transform contentGUI;
+    public Dropdown myCityList;
+    public Dropdown myActionList;
+    public Dropdown myItemList;
     public int lastUpdateDay = 44;
-    public float currentlySelected = 0;
+    public string currentlySelected = "0";
 
 
     public void onSelect (Transform who) 
@@ -22,61 +25,69 @@ public class tradeRoutePanels : MonoBehaviour
         //Debug.Log("on click presed");
         //Debug.Log(who.name + " was clicked");
     }
-    public void enableButtons()
+
+    public void saveJobToRoute(string city, int action, int item, int quantity, int buySellValues, bool waitForCompletions)
     {
-        myDelete.SetActive(true);
-        myEdit.SetActive(true);
+        playerTradeRoutes route = globals.playerTradeRouteList[globals.playerTradeRouteList.FindIndex(a => a.tradeRouteId == currentRouteID)];
 
-    }
-    public void disableButtons()
-    {
-        myDelete.SetActive(false);
-        myEdit.SetActive(false);
-    }
-
-    public void createClick ()
-    {
-        //need to create a better creation method for uid of these items
-        //Debug.Log("edit was clicked for index " + currentlySelected.ToString());
-
-
-
-        GameObject[] temp = GameObject.FindGameObjectsWithTag("traderoutedetails");
-        if (temp.Length > 0)
+        if (currentJobIndex == -1)
         {
-            //cowardly refuse to open another window
+            //add the record new
+            route.jobList.Add(new routeTradeJobs() { 
+                location = globals.cityList[globals.cityList.FindIndex( a => a.name == city)], 
+                tradeAction = action, 
+                tradeItemIndex = item, 
+                tradeQty = quantity, 
+                buySellValue = buySellValues, 
+                waitForCompletion = waitForCompletions 
+                });
+
         }
         else
         {
-            float uID = Time.realtimeSinceStartup;
-            globals.playerTradeRouteList.Add(new playerTradeRoutes(){ tradeRouteId = uID, tradeRouteName = "New Trade Route"});
-            refresh();
-            globals.playerTradeRouteList[globals.playerTradeRouteList.FindIndex(a => a.tradeRouteId == uID)].jobList.Add(new routeTradeJobs(){ tradeItemIndex = 4 });
-            globals.playerTradeRouteList[globals.playerTradeRouteList.FindIndex(a => a.tradeRouteId == uID)].jobList.Add(new routeTradeJobs(){ tradeItemIndex = 3 });
-            globals.playerTradeRouteList[globals.playerTradeRouteList.FindIndex(a => a.tradeRouteId == uID)].jobList.Add(new routeTradeJobs(){ tradeItemIndex = 6 });
-            GameObject tradeRouteDetail = (GameObject)Instantiate(Resources.Load("tradeRouteDetails"));
-            tradeRouteDetail.transform.SetParent(myInstance.transform.parent.transform, true);
-            tradeRouteDetail.GetComponent<tradeRouteDetailsPanel>().currentRouteID = uID;
-            tradeRouteDetail.GetComponent<RectTransform>().position = new Vector3(300,400,0);
-            tradeRouteDetail.GetComponent<tradeRouteDetailsPanel>().refresh();
-            //tradeRouteDetail.GetComponent<RectTransform>().localScale = new Vector3(1,1,1);
+            Debug.Log("I am updating a previous entry");
+            //edit the previous entry
+            route.jobList[currentJobIndex].location = globals.cityList[globals.cityList.FindIndex( a => a.name == city)];
+            route.jobList[currentJobIndex].tradeAction = action;
+            route.jobList[currentJobIndex].tradeItemIndex = item;
+            route.jobList[currentJobIndex].tradeQty = quantity;
+            route.jobList[currentJobIndex].buySellValue = buySellValues;
+            route.jobList[currentJobIndex].waitForCompletion = waitForCompletions;
         }
 
-
     }
 
-    public void editClick ()
+
+    public void saveClick ()
     {
-        Debug.Log("edit was clicked for index " + currentlySelected.ToString());
+        //get the route
+        
+        //float uID = Time.realtimeSinceStartup;
+        //globals.playerTradeRouteList.Add(new playerTradeRoutes(){ tradeRouteId = uID, tradeRouteName = "New Trade Route"});
+        // playerTradeRouteList.Add(new playerTradeRoutes(){ tradeRouteId = 0, tradeRouteName = "test0"});
+        //Debug.Log("item " + myItemList.options[myItemList.value].text);
+        //Debug.Log("city " + myCityList.options[myCityList.value].text);
+        //Debug.Log("action " + myActionList.options[myActionList.value].text);
+        //Debug.Log("quantity " + myInstance.transform.Find("inpQy").Find("Text").GetComponent<Text>().text);
+        //Debug.Log("buysell " + myInstance.transform.Find("inpBuySellAmount").Find("Text").GetComponent<Text>().text);
+        //Debug.Log("wait " + myInstance.transform.Find("Toggle").GetComponent<Toggle>().isOn.ToString());
+
+        //add the new item to the route
+        saveJobToRoute(myCityList.options[myCityList.value].text, (myActionList.value - 1), (myItemList.value - 1), int.Parse(myInstance.transform.Find("inpQy").Find("Text").GetComponent<Text>().text), int.Parse(myInstance.transform.Find("inpBuySellAmount").Find("Text").GetComponent<Text>().text), myInstance.transform.Find("Toggle").GetComponent<Toggle>().isOn);
+
+        //route.jobList.Add(new routeTradeJobs() {});
+        Debug.Log("save was clicked for index " + currentlySelected.ToString());
+        GameObject.Find("tradeRouteDetails(Clone)").GetComponent<tradeRouteDetailsPanel>().refresh();
+        Destroy(myInstance);
+        //refresh();
     }
-    public void deleteClick ()
+
+    
+    public void edit(int index)
     {
-        //Debug.Log("delete was clicked for index " + currentlySelected.ToString());
-        globals.playerTradeRouteList.RemoveAt(globals.playerTradeRouteList.FindIndex(a => a.tradeRouteId == currentlySelected));
-        refresh();
-    }
-    void refresh()
-    {
+        
+
+
         //destroy children
         //Transform[] children = contentGUI.GetChildCount.GetComponentsInChildren<Transform>();
         //int cnt = contentGUI.childCount;
@@ -86,28 +97,22 @@ public class tradeRoutePanels : MonoBehaviour
         //    Destroy(contentGUI.gameObject.transform.GetChild(0));
         //    i++;
         //}
-        currentlySelected = -1;
-        disableButtons();
-        foreach (Transform child in contentGUI) 
-        {
-           GameObject.Destroy(child.gameObject);
-        }
 
         //foreach (Transform item in children)
         //{
         //    Destroy(item);
         //}
-
+        //playerTradeRoutes route = globals.playerTradeRouteList[globals.playerTradeRouteList.FindIndex(a => a.tradeRouteId == currentRouteID)];
+        //myroute = globals.playerTradeRouteList[globals.playerTradeRouteList.FindIndex(a => a.tradeRouteId == currentRouteID)];
 
         //add children
-        foreach (playerTradeRoutes route in globals.playerTradeRouteList)
-        {
-            GameObject childRoute = (GameObject)Instantiate(Resources.Load("tradeRouteListItem"));
-            childRoute.transform.SetParent(contentGUI, false);
-            childRoute.GetComponentInChildren<Button>().GetComponentInChildren<tradeSelection>().index = route.tradeRouteId;
-            //
-            
-        }
+
+
+        //Transform[] allChildren = GetComponentsInChildren<Transform>(true);
+        //GameObject[] allChildren = new GameObject[transform.childCount];
+
+        //Find all child obj and store to that array
+
 
         /*Text[] uiTexts = this.GetComponentsInChildren<Text>();
 
@@ -179,22 +184,54 @@ public class tradeRoutePanels : MonoBehaviour
             //uiTexts[10].text = (vesselToTrade.GetComponent<uiShipScript>().vesselStorageSize - totalInv).ToString();
             //uiTexts[12].text = vesselToTrade.GetComponent<uiShipScript>().location;
             //uiTexts[14].text = "Not Assigned"; //TODO
+//clear/remove all option item
 
 
+        
 
+        //Trigger getting the list of cities
+        myCityList.options.Clear();
+        myCityList.options.Add(new Dropdown.OptionData() {text="---"});
+        foreach (GameObject city in globals.cityList)
+        {
+            myCityList.options.Add(new Dropdown.OptionData() {text=city.name});
+        }
+
+        //Trigger getting the list of items
+        myItemList.options.Clear();
+        myItemList.options.Add(new Dropdown.OptionData() {text="---"});
+        foreach (tradeGoods item in globals.cityList[0].GetComponent<uiCityScript>().cityInventory)
+        {
+            myItemList.options.Add(new Dropdown.OptionData() {text=item.productName});
+        }
+
+        if (currentJobIndex > -1)
+        {
+            //.transform.Find("txtTradeRouteJobTitle").GetComponent<Text>().text = "Trade Route Job - Edit";
+            //currentJobIndex = index;
+            playerTradeRoutes route = globals.playerTradeRouteList[globals.playerTradeRouteList.FindIndex(a => a.tradeRouteId == currentRouteID)];
+            //Debug.Log(route.jobList[currentJobIndex].location.name);
+            //Debug.Log(myCityList.options.FindIndex( a => a.text == route.jobList[currentJobIndex].location.name).ToString());
+            myCityList.value = myCityList.options.FindIndex( a => a.text == route.jobList[currentJobIndex].location.name);
+            myActionList.value = route.jobList[currentJobIndex].tradeAction + 1;
+            myItemList.value = route.jobList[currentJobIndex].tradeItemIndex + 1;
+            myInstance.transform.Find("inpQy").GetComponent<InputField>().text = route.jobList[currentJobIndex].tradeQty.ToString();
+            myInstance.transform.Find("inpBuySellAmount").GetComponent<InputField>().text = route.jobList[currentJobIndex].buySellValue.ToString();
+            myInstance.transform.Find("Toggle").GetComponent<Toggle>().isOn = route.jobList[currentJobIndex].waitForCompletion;
+
+        }
+        else
+        {
+            //TODO annoying this isnt working deal with it later
+            //myInstance.transform.Find("txtTradeRouteJobTitle").gameObject.GetComponent<Text>().text = "Trade Route Job - New";
+        }
 
         //foreach(Transform child in )
-        Transform[] allChildren = GetComponentsInChildren<Transform>(true);
+        //Transform[] allChildren = GetComponentsInChildren<Transform>(true);
         //GameObject[] allChildren = new GameObject[transform.childCount];
 
         //Find all child obj and store to that array
-        foreach (Transform child in allChildren)
-        {
-            if (child.transform.gameObject.name == "Content")
-            {
-                contentGUI = child.transform;
-            }
-        }
+        //refresh();
     }
 
     public void onPointerEnter()
@@ -208,7 +245,8 @@ public class tradeRoutePanels : MonoBehaviour
     public void onExitClick()
     {
         onPointerExit();
-        myInstance.SetActive(false);
+        Destroy(myInstance);
+        //myInstance.SetActive(false);
         //timeBehavior.changeTimeScale(timeBehavior.lastTS);
     }
     public void OnBeginDrag(PointerEventData eventData)
@@ -265,6 +303,8 @@ public class tradeRoutePanels : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //disabling the update every day feature
+        /*
         if (timeBehavior.gameDate.Day == lastUpdateDay)
         {
             return;
@@ -278,7 +318,7 @@ public class tradeRoutePanels : MonoBehaviour
         {
             //Destroy(myInstance);
         }
-
+        */
         
 
         //contentGUI.GetChild(0).gameObject.GetComponent<RawImage>().texture = (Texture)Resources.Load("Assets/icons/grain.png");

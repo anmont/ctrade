@@ -17,7 +17,7 @@ public class tradeRouteDetailsPanel : MonoBehaviour
     public GameObject myMoveDown;
     public Transform contentGUI;
     public int lastUpdateDay = 44;
-    public string currentlySelected = "0";
+    public int currentlySelected = -1;
 
 
     public void onSelect (Transform who) 
@@ -42,19 +42,41 @@ public class tradeRouteDetailsPanel : MonoBehaviour
 
     public void createClick ()
     {
+        Debug.Log("create was clicked for index " + currentlySelected.ToString());
         //need to create a better creation method for uid of these items
-        float uID = Time.realtimeSinceStartup;
-        globals.playerTradeRouteList.Add(new playerTradeRoutes(){ tradeRouteId = uID, tradeRouteName = "New Trade Route"});
-        Debug.Log("edit was clicked for index " + currentlySelected.ToString());
-        refresh();
+        GameObject tradeJobEntry = (GameObject)Instantiate(Resources.Load("tradeJobEntry"));
+        tradeJobEntry.transform.SetParent(myInstance.transform.parent.transform, true);
+        tradeJobEntry.GetComponent<tradeJobEntryPanels>().currentRouteID = currentRouteID;
+        tradeJobEntry.GetComponent<RectTransform>().position = new Vector3(300,400,0);
+        //tradeJobEntry.GetComponent<tradeRouteDetailsPanel>().refresh();
+        
+        //refresh();
+    }
+    public void moveUpClick()
+    {
+
+    }
+    public void moveDownClick()
+    {
+        
     }
 
     public void editClick ()
     {
         Debug.Log("edit was clicked for index " + currentlySelected.ToString());
+        //need to create a better creation method for uid of these items
+        GameObject tradeJobEntry = (GameObject)Instantiate(Resources.Load("tradeJobEntry"));
+        tradeJobEntry.transform.SetParent(myInstance.transform.parent.transform, true);
+        tradeJobEntry.GetComponent<tradeJobEntryPanels>().currentRouteID = currentRouteID;
+        tradeJobEntry.GetComponent<RectTransform>().position = new Vector3(300,400,0);
+        //tradeJobEntry.GetComponent<tradeJobEntryPanels>().myInstance = tradeJobEntry;
+        tradeJobEntry.GetComponent<tradeJobEntryPanels>().currentJobIndex = currentlySelected;
+
     }
     public void deleteClick ()
     {
+        playerTradeRoutes route = globals.playerTradeRouteList[globals.playerTradeRouteList.FindIndex(a => a.tradeRouteId == currentRouteID)];
+        route.jobList.RemoveAt(currentlySelected);
         //Debug.Log("delete was clicked for index " + currentlySelected.ToString());
         // orig needs mon > globals.playerTradeRouteList.RemoveAt(globals.playerTradeRouteList.FindIndex(a => a.tradeRouteId == currentlySelected));
         refresh();
@@ -70,7 +92,7 @@ public class tradeRouteDetailsPanel : MonoBehaviour
         //    Destroy(contentGUI.gameObject.transform.GetChild(0));
         //    i++;
         //}
-        currentlySelected = "-1";
+        currentlySelected = -1;
         disableButtons();
         foreach (Transform child in contentGUI) 
         {
@@ -85,6 +107,7 @@ public class tradeRouteDetailsPanel : MonoBehaviour
         //myroute = globals.playerTradeRouteList[globals.playerTradeRouteList.FindIndex(a => a.tradeRouteId == currentRouteID)];
 
         //add children
+        int tempIndex = 0;
         foreach (routeTradeJobs job in route.jobList)
         {
             //Debug.Log("routeid: " + currentRouteID.ToString());
@@ -92,9 +115,9 @@ public class tradeRouteDetailsPanel : MonoBehaviour
             //Debug.Log("indexid: " + job.tradeItemIndex.ToString());
             GameObject childJob = (GameObject)Instantiate(Resources.Load("tradeRouteJobItem"));
             childJob.transform.SetParent(contentGUI, false);
-            childJob.GetComponentInChildren<Button>().GetComponentInChildren<tradeJobSelection>().index = job.jobID;
+            childJob.GetComponentInChildren<Button>().GetComponentInChildren<tradeJobSelection>().index = tempIndex;
             //
-            
+            tempIndex++;
         }
 
         //Transform[] allChildren = GetComponentsInChildren<Transform>(true);

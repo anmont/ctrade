@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class tradeJobSelection : MonoBehaviour
 {
-    public string index;
+    public int index;
     public void onClick()
     {
         //clear other selections

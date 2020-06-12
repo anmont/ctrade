@@ -396,7 +396,7 @@ public class playerTradeRoutes
 
 public class routeTradeJobs
 {
-    public string jobID;
+    //public int jobIndex;
     public GameObject location;
     public int tradeAction; // 0 load | 1 buy | 2 sell | 3 store
     public int tradeItemIndex;
